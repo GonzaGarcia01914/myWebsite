@@ -24,7 +24,7 @@ class SectionNavController {
 
     // Actualiza la URL con el hash (#id) sin recargar
     if (kIsWeb) {
-      final base = web.window.location.pathname ?? '/';
+      final base = web.window.location.pathname;
       web.window.history.replaceState(null, '', '$base#$id');
     }
   }

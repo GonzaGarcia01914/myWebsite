@@ -1,20 +1,31 @@
+import 'package:flutter/foundation.dart';
+
+@immutable
 class Project {
-  final String id;
+  // Básico
   final String title;
   final String subtitle;
-  final String repoUrl;
-  final String? webDemoUrl;   // demo web embebida
-  final String? playUrl;      // Google Play
   final List<String> tags;
-  final String summary;
+
+  // Enlaces / embeds
+  final String? demoUrl; // build web o sandbox embebible
+  final String? githubUrl; // repo (link directo)
+  final String? codeEmbedUrl; // visor embebible (DartPad/Gist/Pages/etc.)
+  final String? playUrl; // botón Google Play (opcional)
+
+  // Opcionales útiles (por si los quieres usar en el futuro)
+  final String? id;
+  final String? summary;
+
   const Project({
-    required this.id,
     required this.title,
     required this.subtitle,
-    required this.repoUrl,
-    this.webDemoUrl,
-    this.playUrl,
     required this.tags,
-    required this.summary,
+    this.demoUrl,
+    this.githubUrl,
+    this.codeEmbedUrl,
+    this.playUrl,
+    this.id,
+    this.summary,
   });
 }

@@ -2,26 +2,41 @@ import '../../../core/models/project.dart';
 
 final projects = <Project>[
   Project(
-    id: 'movies',
     title: 'Flutter Movies Portfolio',
     subtitle:
-        'Explorador TMDb + favoritos + cache; backend proxy en Firebase Functions',
-    repoUrl: 'https://github.com/<tu-user>/<repo-movies>',
-    webDemoUrl: 'https://<tu-user>.github.io/<repo-movies>/', // si publicas web
-    playUrl: 'https://play.google.com/store/apps/details?id=<paquete>',
+        'Explorador TMDb + favoritos + caché; backend proxy en Firebase Functions',
+    // 👉 Demo web embebible (tu build web o un sandbox)
+    demoUrl:
+        'https://github.com/GonzaGarcia01914/movies.git', // TODO: pon tu URL real o null
+    // 👉 Repo GitHub para el botón superior y la pestaña "Código"
+    githubUrl: 'https://github.com/GonzaGarcia01914/movies.git', // TODO
+    // 👉 Opcional: visor de código embebible (DartPad/Gist/Pages)
+    codeEmbedUrl:
+        null, // ej: https://dartpad.dev/embed-flutter.html?id=<GIST_ID>
+    // 👉 Botón Google Play (si existe)
+    playUrl:
+        'https://play.google.com/store/apps/details?id=<PAQUETE>', //TODO o null
     tags: ['Flutter', 'Riverpod', 'GoRouter', 'Firebase Functions', 'TMDb'],
-    summary:
-        'App de catálogo de películas con búsqueda, detalles y favoritos, '
-        'respetando cuotas y seguridad de API mediante proxy server-side.',
   ),
+
   Project(
-    id: 'x2',
     title: 'Tu proyecto #2',
     subtitle: 'Descripción corta',
-    repoUrl: 'https://github.com/<tu-user>/<repo-2>',
-    webDemoUrl: null,
+    demoUrl: null, // si no tienes demo web
+    githubUrl: 'https://github.com/<TU-USER>/<repo-2>', // TODO
+    codeEmbedUrl: null,
     playUrl: null,
     tags: ['Flutter'],
-    summary: 'Breve resumen del objetivo y el reto técnico principal.',
+  ),
+
+  Project(
+    title: 'This page was also made with Flutter!',
+    subtitle: 'El propio portfolio construido con Flutter Web',
+    demoUrl:
+        'https://<TU-USER>.github.io/<repo-portfolio>/', // TODO (si publicas)
+    githubUrl: 'https://github.com/<TU-USER>/<repo-portfolio>', // TODO
+    codeEmbedUrl: null,
+    playUrl: null,
+    tags: ['Flutter', 'Riverpod', 'GoRouter'],
   ),
 ];

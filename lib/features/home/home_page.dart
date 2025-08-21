@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../core/utils/scroll_nav.dart';
 import '../../core/widgets/app_shell.dart';
 import '../../features/projects/data/projects.dart';
@@ -18,7 +19,6 @@ class _HomePageState extends State<HomePage> {
 
   final heroKey = GlobalKey();
   final projectsKey = GlobalKey();
-  final experienceKey = GlobalKey();
   final resumeKey = GlobalKey();
   final contactKey = GlobalKey();
 
@@ -27,7 +27,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     nav.register('hero', heroKey);
     nav.register('projects', projectsKey);
-    nav.register('experience', experienceKey);
     nav.register('resume', resumeKey);
     nav.register('contact', contactKey);
 
@@ -62,7 +61,6 @@ class _HomePageState extends State<HomePage> {
                 onSelect: (id) => nav.scrollTo(context, id),
               ),
               _ProjectsSection(key: projectsKey),
-              _ExperienceSection(key: experienceKey),
               _ResumeSection(key: resumeKey),
               _ContactSection(key: contactKey),
               const SizedBox(height: 32),
@@ -75,97 +73,40 @@ class _HomePageState extends State<HomePage> {
 }
 
 /// ---------- HERO (enlaces grandes) ----------
+/// ---------- HERO (solo título + descripción) ----------
 class _HeroNav extends StatelessWidget {
   const _HeroNav({super.key, required this.onSelect});
-  final void Function(String id) onSelect;
+  final void Function(String id)
+  onSelect; // lo mantenemos por si más adelante lo usas
 
   @override
   Widget build(BuildContext context) {
     final t = Theme.of(context).textTheme;
+    final topSafe = MediaQuery.paddingOf(context).top + kToolbarHeight;
+
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 64, horizontal: 16),
+      padding: EdgeInsets.fromLTRB(16, topSafe + 24, 16, 48),
       alignment: Alignment.center,
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 1100),
+        constraints: const BoxConstraints(maxWidth: 900),
         child: Column(
           children: [
             Text(
               'Gonzalo García — Portfolio',
-              style: t.displaySmall?.copyWith(fontWeight: FontWeight.w700),
+              textAlign: TextAlign.center,
+              style: t.displaySmall?.copyWith(
+                fontWeight: FontWeight.w800,
+                height: 1.1,
+              ),
             ),
-            const SizedBox(height: 18),
-            Wrap(
-              alignment: WrapAlignment.center,
-              spacing: 16,
-              runSpacing: 16,
-              children: [
-                _HeroButton(
-                  label: 'Proyectos',
-                  icon: Icons.apps,
-                  onTap: () => onSelect('projects'),
-                ),
-                _HeroButton(
-                  label: 'Experiencia',
-                  icon: Icons.work_outline,
-                  onTap: () => onSelect('experience'),
-                ),
-                _HeroButton(
-                  label: 'Resume',
-                  icon: Icons.description_outlined,
-                  onTap: () => onSelect('resume'),
-                ),
-                _HeroButton(
-                  label: 'Contacto',
-                  icon: Icons.mail_outline,
-                  onTap: () => onSelect('contact'),
-                ),
-              ],
+            const SizedBox(height: 12),
+            Text(
+              'Desarrollador Flutter/Dart con 4 años de experiencia. '
+              'Creo experiencias multiplataforma enfocadas en rendimiento, accesibilidad y UX, '
+              'integrando Cloud (Azure/GCP) y GenAI cuando aporta valor.',
+              textAlign: TextAlign.center,
+              style: t.titleMedium,
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _HeroButton extends StatelessWidget {
-  const _HeroButton({
-    required this.label,
-    required this.icon,
-    required this.onTap,
-  });
-  final String label;
-  final IconData icon;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return InkWell(
-      borderRadius: BorderRadius.circular(24),
-      onTap: onTap,
-      child: Ink(
-        padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 28),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-          gradient: LinearGradient(
-            colors: [
-              scheme.primary.withValues(alpha: 0.14),
-              scheme.secondary.withValues(alpha: 0.10),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          border: Border.all(
-            color: scheme.outlineVariant.withValues(alpha: 0.35),
-          ),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, size: 30),
-            const SizedBox(width: 12),
-            Text(label, style: Theme.of(context).textTheme.headlineMedium),
           ],
         ),
       ),
@@ -174,6 +115,7 @@ class _HeroButton extends StatelessWidget {
 }
 
 /// ---------- PROYECTOS ----------
+
 class _ProjectsSection extends StatelessWidget {
   const _ProjectsSection({super.key});
   @override
@@ -188,13 +130,18 @@ class _ProjectsSection extends StatelessWidget {
               : w >= 900
               ? 2
               : 1;
-          return GridView.count(
-            crossAxisCount: cols,
-            childAspectRatio: 1.2,
-            padding: const EdgeInsets.all(16),
+          return GridView.builder(
+            itemCount: projects.length,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            children: projects.map((p) => ProjectCard(project: p)).toList(),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: cols,
+              childAspectRatio: 1.18,
+              crossAxisSpacing: 24, // espacio horizontal
+              mainAxisSpacing: 24, //  espacio vertical
+            ),
+            itemBuilder: (_, i) => ProjectCard(project: projects[i]),
           );
         },
       ),
@@ -202,74 +149,112 @@ class _ProjectsSection extends StatelessWidget {
   }
 }
 
-/// ---------- EXPERIENCIA ----------
-class _ExperienceSection extends StatelessWidget {
-  const _ExperienceSection({super.key});
+/// ---------- RESUME (con Experiencia integrada) ----------
+class _ResumeSection extends StatelessWidget {
+  const _ResumeSection({super.key});
+
   @override
   Widget build(BuildContext context) {
     final t = Theme.of(context).textTheme;
-    final items = const [
-      (
-        'Cognizant (Google Cloud)',
-        '08/2024 – 04/2025',
-        'Generative AI — SME · Flutter',
-      ),
-      (
-        'Microsoft / LTIM',
-        '10/2023 – 08/2024',
-        'Azure App Services · Plataforma',
-      ),
-      ('La Plata', '03/2020 – 06/2023', 'Flutter/Dart Developer'),
-    ];
-    return _Section(
-      id: 'Experiencia',
-      child: Column(
-        children: items.map((e) {
-          return Card(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(child: Text(e.$1, style: t.titleLarge)),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(e.$3, style: t.bodyLarge),
-                        const SizedBox(height: 6),
-                        Text(e.$2, style: t.bodyMedium),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        }).toList(),
-      ),
-    );
-  }
-}
+    final scheme = Theme.of(context).colorScheme;
 
-/// ---------- RESUME ----------
-class _ResumeSection extends StatelessWidget {
-  const _ResumeSection({super.key});
-  @override
-  Widget build(BuildContext context) {
     final bullets = const [
       'Flutter/Dart (4 años), Java (2), C#',
       'Azure/GCP, Firebase, REST APIs',
       'GenAI, CI/CD, Testing, Accesibilidad',
       'ES nativo · EN C1',
     ];
+
+    final exp = const [
+      (
+        'Cognizant (Google Cloud)',
+        'Generative AI — SME · Flutter',
+        '08/2024 to 04/2025',
+      ),
+      (
+        'Microsoft / LTIM',
+        'Azure App Services · Plataforma',
+        '10/2023 to 08/2024',
+      ),
+      ('La Plata', 'Flutter/Dart Developer', '03/2020 to 06/2023'),
+    ];
+
     return _Section(
       id: 'Resume',
-      child: Wrap(
-        spacing: 16,
-        runSpacing: 16,
-        children: bullets.map((b) => Chip(label: Text(b))).toList(),
+      child: Column(
+        children: [
+          // Skills
+          Wrap(
+            alignment: WrapAlignment.center,
+            spacing: 16,
+            runSpacing: 16,
+            children: bullets
+                .map(
+                  (b) => Chip(
+                    label: Text(b, style: t.labelLarge),
+                    side: BorderSide(
+                      color: scheme.outlineVariant.withValues(alpha: .45),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 10,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+          const SizedBox(height: 36),
+
+          // Subtítulo Experiencia
+          Text(
+            'Experiencia',
+            style: t.headlineMedium?.copyWith(fontWeight: FontWeight.w800),
+          ),
+          const SizedBox(height: 16),
+
+          // Cards de experiencia
+          Column(
+            children: exp
+                .map(
+                  (e) => Padding(
+                    padding: const EdgeInsets.only(bottom: 16),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(22),
+                      ),
+                      color: scheme.surface.withValues(alpha: 0.10),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 22,
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(child: Text(e.$1, style: t.titleLarge)),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(e.$2, style: t.titleMedium),
+                                  const SizedBox(height: 6),
+                                  Text(e.$3, style: t.bodyLarge),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+        ],
       ),
     );
   }
@@ -278,6 +263,7 @@ class _ResumeSection extends StatelessWidget {
 /// ---------- CONTACTO ----------
 class _ContactSection extends StatelessWidget {
   const _ContactSection({super.key});
+
   @override
   Widget build(BuildContext context) {
     return _Section(
@@ -285,21 +271,24 @@ class _ContactSection extends StatelessWidget {
       child: Wrap(
         spacing: 16,
         runSpacing: 16,
-        children: [
-          _ContactTile(
+        children: const [
+          _ContactCard(
             title: 'Email',
             subtitle: 'gonzalogarcia01914@gmail.com',
             icon: Icons.email,
+            url: 'mailto:gonzalogarcia01914@gmail.com',
           ),
-          _ContactTile(
+          _ContactCard(
             title: 'Instagram',
             subtitle: '@gonzagarcia019',
             icon: Icons.camera_alt_outlined,
+            url: 'https://instagram.com/gonzagarcia019',
           ),
-          _ContactTile(
+          _ContactCard(
             title: 'Teléfono',
             subtitle: '+48 519 116 988',
             icon: Icons.phone,
+            url: 'tel:+48519116988',
           ),
         ],
       ),
@@ -307,30 +296,107 @@ class _ContactSection extends StatelessWidget {
   }
 }
 
-class _ContactTile extends StatelessWidget {
-  const _ContactTile({
+class _ContactCard extends StatefulWidget {
+  const _ContactCard({
     required this.title,
     required this.subtitle,
     required this.icon,
+    required this.url,
   });
-  final String title, subtitle;
+
+  final String title;
+  final String subtitle;
   final IconData icon;
+  final String url;
+
+  @override
+  State<_ContactCard> createState() => _ContactCardState();
+}
+
+class _ContactCardState extends State<_ContactCard> {
+  bool _hover = false;
+  bool _focused = false;
+
+  Future<void> _open() async {
+    final uri = Uri.parse(widget.url);
+    await launchUrl(
+      uri,
+      mode: LaunchMode.externalApplication,
+      webOnlyWindowName: '_blank', // nueva pestaña en web
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = Theme.of(context).textTheme;
-    return SizedBox(
-      width: 280,
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(18),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(icon),
-              const SizedBox(height: 10),
-              Text(title, style: t.titleLarge),
-              Text(subtitle, style: t.bodyMedium),
-            ],
+    final scheme = Theme.of(context).colorScheme;
+
+    final borderColor = _hover || _focused
+        ? scheme.primary.withValues(alpha: 0.45)
+        : scheme.outlineVariant.withValues(alpha: 0.35);
+
+    return FocusableActionDetector(
+      onShowFocusHighlight: (v) => setState(() => _focused = v),
+      mouseCursor: SystemMouseCursors.click,
+      actions: <Type, Action<Intent>>{
+        ActivateIntent: CallbackAction<Intent>(
+          onInvoke: (_) {
+            _open();
+            return null;
+          },
+        ),
+      },
+      child: MouseRegion(
+        onEnter: (_) => setState(() => _hover = true),
+        onExit: (_) => setState(() => _hover = false),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 160),
+          curve: Curves.easeOut,
+          transform: Matrix4.identity()..translate(0.0, _hover ? -2.0 : 0.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: borderColor),
+            boxShadow: _hover
+                ? [
+                    BoxShadow(
+                      color: scheme.primary.withValues(alpha: 0.18),
+                      blurRadius: 20,
+                      offset: const Offset(0, 8),
+                    ),
+                  ]
+                : const [],
+          ),
+          child: Material(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(16),
+            child: InkWell(
+              borderRadius: BorderRadius.circular(16),
+              onTap: _open,
+              child: SizedBox(
+                width: 280,
+                child: Padding(
+                  padding: const EdgeInsets.all(18),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(widget.icon),
+                      const SizedBox(height: 12),
+                      Text(widget.title, style: t.titleLarge),
+                      const SizedBox(height: 4),
+                      Text(widget.subtitle, style: t.bodyMedium),
+                      const SizedBox(height: 12),
+                      const Text(
+                        'Toca para abrir',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ),
         ),
       ),
@@ -348,18 +414,22 @@ class _Section extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = Theme.of(context).textTheme;
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 48, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 64, horizontal: 16),
       alignment: Alignment.center,
       child: ConstrainedBox(
         constraints: const BoxConstraints(maxWidth: 1200),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               id,
-              style: t.displaySmall?.copyWith(fontWeight: FontWeight.w700),
+              textAlign: TextAlign.center,
+              style: t.displaySmall?.copyWith(
+                fontWeight: FontWeight.w800,
+                height: 1.1,
+              ),
             ),
-            const SizedBox(height: 18),
+            const SizedBox(height: 24),
             child,
           ],
         ),
