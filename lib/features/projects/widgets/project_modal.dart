@@ -42,6 +42,27 @@ class _ProjectModalState extends State<ProjectModal>
     final scheme = Theme.of(context).colorScheme;
     final t = Theme.of(context).textTheme;
 
+    /// Si tenemos githubUrl (https://github.com/<owner>/<repo>),
+    /// devolvemos https://<owner>.github.io/<repo>/code.html?owner=<owner>&repo=<repo>&branch=main
+    String? _inferCodeViewerFromGithub(String? githubUrl) {
+      if (githubUrl == null) return null;
+      try {
+        final uri = Uri.parse(githubUrl);
+        final parts = uri.path
+            .split('/')
+            .where((s) => s.isNotEmpty)
+            .toList(); // [owner, repo]
+        if (parts.length < 2) return null;
+        final owner = parts[0];
+        final repo = parts[1];
+        final base = 'https://$owner.github.io/$repo/code.html';
+        // Pasamos también los params para que tu code.html pueda usarlos:
+        return '$base?owner=$owner&repo=$repo&branch=main';
+      } catch (_) {
+        return null;
+      }
+    }
+
     return Dialog(
       backgroundColor: scheme.surface.withValues(alpha: .95),
       insetPadding: const EdgeInsets.all(24),
@@ -102,7 +123,7 @@ class _ProjectModalState extends State<ProjectModal>
                   indicatorColor: scheme.primary,
                   tabs: const [
                     Tab(text: 'Demo'),
-                    Tab(text: 'Description'),
+                    Tab(text: 'Code'),
                   ],
                 ),
 
