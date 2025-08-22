@@ -1,8 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 import '../../../core/models/project.dart';
-import '../../../core/widgets/web_demo_view.dart'; // tu IFrame helper
+import '../../../core/widgets/web_demo_view.dart'; // IFrame helper
 
 class ProjectModal extends StatefulWidget {
   const ProjectModal({super.key, required this.project});
@@ -19,7 +20,13 @@ class _ProjectModalState extends State<ProjectModal>
   @override
   void initState() {
     super.initState();
-    _tabs = TabController(length: 2, vsync: this); // Solo Demo y Código
+
+    // Construimos el número de pestañas dinámicamente:
+    // Demo (si procede) + Code + Descripción
+    final hasDemo =
+        widget.project.showDemo && (widget.project.demoUrl ?? '').isNotEmpty;
+    final length = (hasDemo ? 1 : 0) + 2; // +2 por Code y Descripción
+    _tabs = TabController(length: length, vsync: this);
   }
 
   @override
@@ -37,31 +44,143 @@ class _ProjectModalState extends State<ProjectModal>
     );
   }
 
+  /// Si tenemos githubUrl (https://github.com/<owner>/<repo>),
+  /// devolvemos https://<owner>.github.io/<repo>/code.html?owner=<owner>&repo=<repo>&branch=main
+  String? _inferCodeViewerFromGithub(String? githubUrl) {
+    if (githubUrl == null) return null;
+    try {
+      final uri = Uri.parse(githubUrl);
+      final parts = uri.path
+          .split('/')
+          .where((s) => s.isNotEmpty)
+          .toList(); // [owner, repo]
+      if (parts.length < 2) return null;
+      final owner = parts[0];
+      final repo = parts[1];
+      final base = 'https://$owner.github.io/$repo/code.html';
+      return '$base?owner=$owner&repo=$repo&branch=main';
+    } catch (_) {
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final t = Theme.of(context).textTheme;
 
-    /// Si tenemos githubUrl (https://github.com/<owner>/<repo>),
-    /// devolvemos https://<owner>.github.io/<repo>/code.html?owner=<owner>&repo=<repo>&branch=main
-    String? _inferCodeViewerFromGithub(String? githubUrl) {
-      if (githubUrl == null) return null;
-      try {
-        final uri = Uri.parse(githubUrl);
-        final parts = uri.path
-            .split('/')
-            .where((s) => s.isNotEmpty)
-            .toList(); // [owner, repo]
-        if (parts.length < 2) return null;
-        final owner = parts[0];
-        final repo = parts[1];
-        final base = 'https://$owner.github.io/$repo/code.html';
-        // Pasamos también los params para que tu code.html pueda usarlos:
-        return '$base?owner=$owner&repo=$repo&branch=main';
-      } catch (_) {
-        return null;
-      }
+    final hasDemo =
+        widget.project.showDemo && (widget.project.demoUrl ?? '').isNotEmpty;
+
+    // ---------- Armamos tabs y vistas ----------
+    final tabs = <Tab>[];
+    final views = <Widget>[];
+
+    if (hasDemo) {
+      tabs.add(const Tab(text: 'Demo'));
+      views.add(
+        Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Card(
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(14),
+              child: WebDemoView(url: widget.project.demoUrl!),
+            ),
+          ),
+        ),
+      );
     }
+
+    // CODE
+    tabs.add(const Tab(text: 'Code'));
+    views.add(
+      Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Builder(
+          builder: (_) {
+            final url =
+                widget.project.codeEmbedUrl ??
+                _inferCodeViewerFromGithub(widget.project.githubUrl);
+
+            if (url == null) {
+              return Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text('No hay visor de código configurado.'),
+                    const SizedBox(height: 12),
+                    if (widget.project.githubUrl != null)
+                      FilledButton.icon(
+                        onPressed: () => _openUrl(widget.project.githubUrl!),
+                        icon: const Icon(Icons.code),
+                        label: const Text('Abrir en GitHub'),
+                      ),
+                  ],
+                ),
+              );
+            }
+
+            return Card(
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: SizedBox(
+                height: (MediaQuery.of(context).size.height * 0.55)
+                    .clamp(420, 680)
+                    .toDouble(),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(14),
+                  child: WebDemoView(url: url),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+
+    // DESCRIPCIÓN
+    tabs.add(const Tab(text: 'Descripción'));
+    views.add(
+      SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: widget.project.tags
+                  .map(
+                    (tag) => Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: scheme.outlineVariant.withValues(alpha: .65),
+                        ),
+                        color: scheme.surface.withValues(alpha: .10),
+                      ),
+                      child: Text(tag, style: t.labelLarge),
+                    ),
+                  )
+                  .toList(),
+            ),
+            const SizedBox(height: 14),
+            if ((widget.project.summary ?? '').isNotEmpty)
+              Text(widget.project.summary!, style: t.bodyLarge),
+          ],
+        ),
+      ),
+    );
 
     return Dialog(
       backgroundColor: scheme.surface.withValues(alpha: .95),
@@ -121,156 +240,18 @@ class _ProjectModalState extends State<ProjectModal>
                   unselectedLabelStyle: t.titleMedium,
                   dividerColor: scheme.outlineVariant.withValues(alpha: .5),
                   indicatorColor: scheme.primary,
-                  tabs: const [
-                    Tab(text: 'Demo'),
-                    Tab(text: 'Code'),
-                  ],
+                  tabs: tabs,
                 ),
 
                 // ---------- Body ----------
                 Expanded(
-                  child: TabBarView(
-                    controller: _tabs,
-                    children: [
-                      // DEMO
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Builder(
-                          builder: (_) {
-                            final url = widget.project.demoUrl;
-                            if (url == null) {
-                              return const _EmptyState(
-                                text: 'No available demo for this project',
-                              );
-                            }
-                            return Card(
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(14),
-                                child: WebDemoView(url: url),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-
-                      // CÓDIGO
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Builder(
-                          builder: (_) {
-                            // 1) Intentamos usar codeEmbedUrl si lo definiste en el Project.
-                            // 2) Si no, inferimos la URL del code.html a partir de githubUrl (owner/repo).
-                            final url =
-                                widget.project.codeEmbedUrl ??
-                                _inferCodeViewerFromGithub(
-                                  widget.project.githubUrl,
-                                );
-
-                            if (url == null) {
-                              return Center(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const Text(
-                                      'No hay visor de código configurado.',
-                                    ),
-                                    const SizedBox(height: 12),
-                                    if (widget.project.githubUrl != null)
-                                      FilledButton.icon(
-                                        onPressed: () =>
-                                            _openUrl(widget.project.githubUrl!),
-                                        icon: const Icon(Icons.code),
-                                        label: const Text('Abrir en GitHub'),
-                                      ),
-                                  ],
-                                ),
-                              );
-                            }
-
-                            final t = Theme.of(context).textTheme;
-                            final scheme = Theme.of(context).colorScheme;
-
-                            return SingleChildScrollView(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Visor (iframe) de code.html
-                                  Card(
-                                    elevation: 0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(14),
-                                    ),
-                                    child: SizedBox(
-                                      height: 520, // alto del visor
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(14),
-                                        child: WebDemoView(url: url),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 16),
-                                  Divider(
-                                    color: scheme.outlineVariant.withValues(
-                                      alpha: .5,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 16),
-
-                                  // Chips/Tags
-                                  Wrap(
-                                    spacing: 10,
-                                    runSpacing: 10,
-                                    children: widget.project.tags
-                                        .map(
-                                          (tag) => Chip(
-                                            label: Text(tag),
-                                            side: BorderSide(
-                                              color: scheme.outlineVariant
-                                                  .withValues(alpha: .55),
-                                            ),
-                                          ),
-                                        )
-                                        .toList(),
-                                  ),
-
-                                  const SizedBox(height: 14),
-
-                                  // Descripción (summary)
-                                  if ((widget.project.summary ?? '').isNotEmpty)
-                                    Text(
-                                      widget.project.summary!,
-                                      style: t.bodyLarge,
-                                    ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
+                  child: TabBarView(controller: _tabs, children: views),
                 ),
               ],
             ),
           ),
         ),
       ),
-    );
-  }
-}
-
-class _EmptyState extends StatelessWidget {
-  const _EmptyState({required this.text});
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(text, style: Theme.of(context).textTheme.titleMedium),
     );
   }
 }

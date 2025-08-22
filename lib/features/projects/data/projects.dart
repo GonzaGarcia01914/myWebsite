@@ -33,11 +33,15 @@ final projects = <Project>[
   Project(
     title: 'This page was also made with Flutter!',
     subtitle: 'El propio portfolio construido con Flutter Web',
-    demoUrl:
-        'https://github.com/GonzaGarcia01914/myWebsite.git', // TODO (si publicas)
-    githubUrl: 'https://github.com/GonzaGarcia01914/myWebsite.git', // TODO
-    codeEmbedUrl: null,
-    playUrl: null,
+    showDemo: false, // ⟵ oculta pestaña Demo
+    demoUrl: null,
+    githubUrl:
+        'https://github.com/GonzaGarcia01914/portfolio_web', // ajusta si cambia
+    // Recomendado: usar el code.html local de ESTE repo (copiado a /web)
+    codeEmbedUrl:
+        '/code.html?owner=GonzaGarcia01914&repo=portfolio&branch=main',
     tags: ['Flutter', 'Riverpod', 'GoRouter'],
+    summary:
+        'SPA con navegación por secciones, efectos hover, modal de proyectos con demo y visor de código.',
   ),
 ];

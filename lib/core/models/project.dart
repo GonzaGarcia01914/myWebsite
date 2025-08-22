@@ -2,20 +2,20 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class Project {
-  // Básico
   final String title;
   final String subtitle;
   final List<String> tags;
 
-  // Enlaces / embeds
-  final String? demoUrl; // build web o sandbox embebible
-  final String? githubUrl; // repo (link directo)
-  final String? codeEmbedUrl; // visor embebible (DartPad/Gist/Pages/etc.)
-  final String? playUrl; // botón Google Play (opcional)
+  final String? demoUrl; // URL demo web (si procede)
+  final String? githubUrl; // repo
+  final String? codeEmbedUrl; // visor embebible (code.html / DartPad)
+  final String? playUrl; // Google Play (opcional)
 
-  // Opcionales útiles (por si los quieres usar en el futuro)
   final String? id;
   final String? summary;
+
+  /// Si es false, no se muestra la pestaña Demo (útil para esta misma web).
+  final bool showDemo;
 
   const Project({
     required this.title,
@@ -27,5 +27,6 @@ class Project {
     this.playUrl,
     this.id,
     this.summary,
+    this.showDemo = true, // por defecto sí mostramos demo
   });
 }
