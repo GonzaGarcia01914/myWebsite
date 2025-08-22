@@ -8,30 +8,24 @@
     <style>
         :root {
             --bg: #0b0f14;
-            /* fondo general oscuro */
             --panel: #0f141b;
-            /* paneles */
             --panel-2: #0d1218;
-            /* hover/variación */
             --text: #e5e7eb;
-            /* texto claro */
             --muted: #94a3b8;
-            /* texto tenue */
             --border: #1f2937;
-            /* bordes */
             --accent: #334155;
-            /* detalles */
             --accent-2: #1e293b;
-            /* hover */
         }
 
         * {
             box-sizing: border-box;
         }
 
+        /* 👇 clave: el documento del iframe NO agrega scroll */
         html,
         body {
             height: 100%;
+            overflow: hidden;
         }
 
         body {
@@ -41,13 +35,19 @@
             color: var(--text);
         }
 
+        /* 👇 usa 100% del contenedor (NO 100vw) y sin overflow del grid */
         #layout {
             display: grid;
             grid-template-columns: 300px 1fr;
             height: 100vh;
-            width: 100vw;
+            /* ocupa todo el alto disponible del iframe */
+            width: 100%;
+            /* evita scrollbar horizontal fantasma */
+            overflow: hidden;
+            /* el grid no scrollea */
         }
 
+        /* Sólo el árbol scrollea */
         #sidebar {
             background: var(--panel);
             border-right: 1px solid var(--border);
@@ -107,9 +107,22 @@
             margin-left: 16px;
         }
 
+        /* El panel derecho no genera scroll; lo gestiona Monaco */
+        main {
+            display: flex;
+            min-width: 0;
+            overflow: hidden;
+        }
+
         #editor {
             height: 100%;
             width: 100%;
+        }
+
+        /* Asegura que Monaco ocupe TODO el alto sin contenedor extra con scroll */
+        .monaco-editor,
+        .monaco-editor .overflow-guard {
+            height: 100% !important;
         }
     </style>
 </head>

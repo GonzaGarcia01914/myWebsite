@@ -9,6 +9,9 @@ void registerIFrameView(String viewType, String url) {
     final el = html.IFrameElement()
       ..src = url
       ..style.border = '0'
+      ..style.width = '100%'
+      ..style.height = '100%'
+      ..setAttribute('scrolling', 'no')
       ..allow = 'fullscreen'
       ..sandbox?.add('allow-scripts')
       ..sandbox?.add('allow-same-origin')
