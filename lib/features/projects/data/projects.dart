@@ -5,18 +5,19 @@ final projects = <Project>[
     title: 'Flutter Movies Portfolio',
     subtitle:
         'Explorador TMDb + favoritos + caché; backend proxy en Firebase Functions',
-    // 👉 Demo web embebible (tu build web o un sandbox)
-    demoUrl:
-        'https://github.com/GonzaGarcia01914/movies.git', // TODO: pon tu URL real o null
-    // 👉 Repo GitHub para el botón superior y la pestaña "Código"
-    githubUrl: 'https://github.com/GonzaGarcia01914/movies.git', // TODO
-    // 👉 Opcional: visor de código embebible (DartPad/Gist/Pages)
+    demoUrl: 'https://gonzagarcia01914.github.io/movies/', // ya lo usas
+    githubUrl: 'https://github.com/GonzaGarcia01914/movies',
     codeEmbedUrl:
-        null, // ej: https://dartpad.dev/embed-flutter.html?id=<GIST_ID>
-    // 👉 Botón Google Play (si existe)
-    playUrl:
-        'https://play.google.com/store/apps/details?id=<PAQUETE>', //TODO o null
-    tags: ['Flutter', 'Riverpod', 'GoRouter', 'Firebase Functions', 'TMDb'],
+        'https://gonzagarcia01914.github.io/movies/code.html?owner=GonzaGarcia01914&repo=movies&branch=main', // opcional; si no lo pones, se infiere.
+    playUrl: 'https://play.google.com/store/apps/details?id=<PAQUETE>',
+    tags: [
+      'Flutter',
+      'Riverpod',
+      'GoRouter',
+      'Firebase Functions',
+      'RESTful API',
+    ],
+    summary: 'App de catálogo de películas con búsqueda, detalles y favoritos…',
   ),
 
   Project(
@@ -33,8 +34,8 @@ final projects = <Project>[
     title: 'This page was also made with Flutter!',
     subtitle: 'El propio portfolio construido con Flutter Web',
     demoUrl:
-        'https://<TU-USER>.github.io/<repo-portfolio>/', // TODO (si publicas)
-    githubUrl: 'https://github.com/<TU-USER>/<repo-portfolio>', // TODO
+        'https://github.com/GonzaGarcia01914/myWebsite.git', // TODO (si publicas)
+    githubUrl: 'https://github.com/GonzaGarcia01914/myWebsite.git', // TODO
     codeEmbedUrl: null,
     playUrl: null,
     tags: ['Flutter', 'Riverpod', 'GoRouter'],

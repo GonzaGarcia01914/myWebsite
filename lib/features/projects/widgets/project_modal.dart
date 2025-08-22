@@ -79,7 +79,7 @@ class _ProjectModalState extends State<ProjectModal>
                         OutlinedButton.icon(
                           onPressed: () => _openUrl(widget.project.githubUrl!),
                           icon: const Icon(Icons.code),
-                          label: const Text('GitHub'),
+                          label: const Text('Check it on GitHub!'),
                         ),
                       const SizedBox(width: 8),
                       IconButton(
@@ -102,7 +102,7 @@ class _ProjectModalState extends State<ProjectModal>
                   indicatorColor: scheme.primary,
                   tabs: const [
                     Tab(text: 'Demo'),
-                    Tab(text: 'Código'),
+                    Tab(text: 'Description'),
                   ],
                 ),
 
@@ -119,7 +119,7 @@ class _ProjectModalState extends State<ProjectModal>
                             final url = widget.project.demoUrl;
                             if (url == null) {
                               return const _EmptyState(
-                                text: 'Sin demo embebida para este proyecto.',
+                                text: 'No available demo for this project',
                               );
                             }
                             return Card(
@@ -141,44 +141,91 @@ class _ProjectModalState extends State<ProjectModal>
                         padding: const EdgeInsets.all(12.0),
                         child: Builder(
                           builder: (_) {
-                            // Opción A: tienes un visor embebible (DartPad/Gist/Pages)
-                            final embed = widget.project.codeEmbedUrl;
-                            if (embed != null) {
-                              return Card(
-                                elevation: 0,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(14),
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(14),
-                                  child: WebDemoView(url: embed),
-                                ),
-                              );
-                            }
+                            // 1) Intentamos usar codeEmbedUrl si lo definiste en el Project.
+                            // 2) Si no, inferimos la URL del code.html a partir de githubUrl (owner/repo).
+                            final url =
+                                widget.project.codeEmbedUrl ??
+                                _inferCodeViewerFromGithub(
+                                  widget.project.githubUrl,
+                                );
 
-                            // Opción B: no hay embed → mostramos acceso directo al repo
-                            if (widget.project.githubUrl != null) {
+                            if (url == null) {
                               return Center(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const _EmptyState(
-                                      text:
-                                          'Abre el repositorio para ver el código.',
+                                    const Text(
+                                      'No hay visor de código configurado.',
                                     ),
                                     const SizedBox(height: 12),
-                                    FilledButton.icon(
-                                      onPressed: () =>
-                                          _openUrl(widget.project.githubUrl!),
-                                      icon: const Icon(Icons.code),
-                                      label: const Text('Abrir en GitHub'),
-                                    ),
+                                    if (widget.project.githubUrl != null)
+                                      FilledButton.icon(
+                                        onPressed: () =>
+                                            _openUrl(widget.project.githubUrl!),
+                                        icon: const Icon(Icons.code),
+                                        label: const Text('Abrir en GitHub'),
+                                      ),
                                   ],
                                 ),
                               );
                             }
-                            return const _EmptyState(
-                              text: 'Código no disponible.',
+
+                            final t = Theme.of(context).textTheme;
+                            final scheme = Theme.of(context).colorScheme;
+
+                            return SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Visor (iframe) de code.html
+                                  Card(
+                                    elevation: 0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(14),
+                                    ),
+                                    child: SizedBox(
+                                      height: 520, // alto del visor
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(14),
+                                        child: WebDemoView(url: url),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  Divider(
+                                    color: scheme.outlineVariant.withValues(
+                                      alpha: .5,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 16),
+
+                                  // Chips/Tags
+                                  Wrap(
+                                    spacing: 10,
+                                    runSpacing: 10,
+                                    children: widget.project.tags
+                                        .map(
+                                          (tag) => Chip(
+                                            label: Text(tag),
+                                            side: BorderSide(
+                                              color: scheme.outlineVariant
+                                                  .withValues(alpha: .55),
+                                            ),
+                                          ),
+                                        )
+                                        .toList(),
+                                  ),
+
+                                  const SizedBox(height: 14),
+
+                                  // Descripción (summary)
+                                  if ((widget.project.summary ?? '').isNotEmpty)
+                                    Text(
+                                      widget.project.summary!,
+                                      style: t.bodyLarge,
+                                    ),
+                                ],
+                              ),
                             );
                           },
                         ),
