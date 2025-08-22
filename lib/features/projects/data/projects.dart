@@ -17,7 +17,13 @@ final projects = <Project>[
       'Firebase Functions',
       'RESTful API',
     ],
-    summary: 'App de catálogo de películas con búsqueda, detalles y favoritos…',
+    summary: '''
+Flutter Movies Portfolio is a mobile application built with Flutter, designed to showcase my expertise in cross-platform development and external service integration. 
+
+The app allows users to explore movies and TV shows (now playing, popular, search, details, cast, and recommendations) by consuming the The Movie Database (TMDb) API through a custom Firebase backend that secures API keys and acts as a safe proxy.
+
+This project is part of my professional portfolio, aimed at demonstrating best practices in architecture, state management, REST API consumption, Firebase integration, and production deployment.
+''',
   ),
 
   Project(
