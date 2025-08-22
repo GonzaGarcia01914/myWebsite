@@ -36,10 +36,10 @@ final projects = <Project>[
     showDemo: false, // ⟵ oculta pestaña Demo
     demoUrl: null,
     githubUrl:
-        'https://github.com/GonzaGarcia01914/portfolio_web', // ajusta si cambia
+        'https://github.com/GonzaGarcia01914/myWebsite.git', // ajusta si cambia
     // Recomendado: usar el code.html local de ESTE repo (copiado a /web)
     codeEmbedUrl:
-        '/code.html?owner=GonzaGarcia01914&repo=portfolio&branch=main',
+        '/code.html?owner=GonzaGarcia01914&repo=myWebsite&branch=main',
     tags: ['Flutter', 'Riverpod', 'GoRouter'],
     summary:
         'SPA con navegación por secciones, efectos hover, modal de proyectos con demo y visor de código.',
