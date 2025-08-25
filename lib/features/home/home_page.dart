@@ -72,12 +72,10 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-/// ---------- HERO (enlaces grandes) ----------
 /// ---------- HERO (solo título + descripción) ----------
 class _HeroNav extends StatelessWidget {
   const _HeroNav({super.key, required this.onSelect});
-  final void Function(String id)
-  onSelect; // lo mantenemos por si más adelante lo usas
+  final void Function(String id) onSelect;
 
   @override
   Widget build(BuildContext context) {
@@ -150,111 +148,289 @@ class _ProjectsSection extends StatelessWidget {
 }
 
 /// ---------- RESUME (con Experiencia integrada) ----------
-class _ResumeSection extends StatelessWidget {
+class _ResumeSection extends StatefulWidget {
   const _ResumeSection({super.key});
+
+  @override
+  State<_ResumeSection> createState() => _ResumeSectionState();
+}
+
+class _ResumeSectionState extends State<_ResumeSection> {
+  int? _expanded;
+
+  Future<void> _openUrl(String url) async {
+    final uri = Uri.parse(url);
+    await launchUrl(
+      uri,
+      mode: LaunchMode.externalApplication,
+      webOnlyWindowName: '_blank',
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final t = Theme.of(context).textTheme;
     final scheme = Theme.of(context).colorScheme;
 
-    final bullets = const [
-      'Flutter/Dart (4 años), Java (2), C#',
-      'Azure/GCP, Firebase, REST APIs',
-      'GenAI, CI/CD, Testing, Accesibilidad',
-      'ES nativo · EN C1',
+    // SKILLS
+    final skills = const [
+      'Flutter/Dart',
+      'Java',
+      'C#',
+      'Azure',
+      'Firebase',
+      'REST APIs',
+      'GenAI integration',
+      'Riverpod/Provider',
+      'Native Spanish',
+      'English C1',
     ];
 
-    final exp = const [
+    // EXPERIENCE + descripción
+    final exp = [
       (
-        'Cognizant (Google Cloud)',
-        'Generative AI — SME · Flutter',
-        '08/2024 to 04/2025',
+        title: 'Cognizant (Google Cloud)',
+        role: 'Generative AI — SME · Flutter',
+        period: '08/2024 to 04/2025',
+        desc:
+            'My most recen project was as a Generative AI Subject Matter Expert (SME) at Cognizant, within the Google Cloud project. '
+            'My role involved developing applications using Flutter and integrating Google Cloud’s AI solutions to deliver innovative experiences for our clients.',
       ),
       (
-        'Microsoft / LTIM',
-        'Azure App Services · Plataforma',
-        '10/2023 to 08/2024',
+        title: 'Microsoft / LTIM',
+        role: 'Azure App Services · Plataforma',
+        period: '10/2023 to 08/2024',
+        desc:
+            'I worked as part of Microsoft Azure App Services team, in the diagnosis and resolution of platform and software issues, '
+            'mainly related with Networking and Certificates.',
       ),
-      ('La Plata', 'Flutter/Dart Developer', '03/2020 to 06/2023'),
+      (
+        title: 'La Plata',
+        role: 'Flutter/Dart Developer',
+        period: '03/2020 to 06/2023',
+        desc:
+            'I worked on the development of multi platform applications mainly with flutter-dart.',
+      ),
     ];
+
+    // Chip con leve glow / gradiente (igual que antes)
+    Widget buildSkillChip(String text) {
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(
+            color: scheme.outlineVariant.withValues(alpha: .5),
+          ),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              scheme.primary.withValues(alpha: .09),
+              scheme.secondary.withValues(alpha: .08),
+              scheme.surface.withValues(alpha: .05),
+            ],
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: scheme.primary.withValues(alpha: .12),
+              blurRadius: 14,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Text(text, style: t.labelLarge),
+        ),
+      );
+    }
+
+    // Card de experiencia con LA MISMA animación/efecto que ProjectCard
+    Widget buildExpItem(int index) {
+      final item = exp[index];
+      final isOpen = _expanded == index;
+
+      final baseBorder = Theme.of(
+        context,
+      ).colorScheme.outlineVariant.withValues(alpha: 0.35);
+      final hoverBorder = Theme.of(
+        context,
+      ).colorScheme.primary.withValues(alpha: 0.45);
+
+      return _HoverCard(
+        borderRadius: 16,
+
+        borderColor: baseBorder,
+        hoverBorderColor: hoverBorder,
+        onTap: () => setState(() => _expanded = isOpen ? null : index),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 160),
+          curve: Curves.easeOut,
+
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: scheme.surface,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 22),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(child: Text(item.title, style: t.titleLarge)),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(item.role, style: t.titleMedium),
+                          const SizedBox(height: 6),
+                          Text(item.period, style: t.bodyLarge),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                AnimatedCrossFade(
+                  firstChild: const SizedBox.shrink(),
+                  secondChild: Padding(
+                    padding: const EdgeInsets.only(top: 14),
+                    child: Text(item.desc, style: t.bodyLarge),
+                  ),
+                  crossFadeState: isOpen
+                      ? CrossFadeState.showSecond
+                      : CrossFadeState.showFirst,
+                  duration: const Duration(milliseconds: 180),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
 
     return _Section(
       id: 'Resume',
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Skills
+          // My skills
+          Text(
+            'My skills',
+            style: t.headlineMedium?.copyWith(fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 18),
           Wrap(
             alignment: WrapAlignment.center,
             spacing: 16,
             runSpacing: 16,
-            children: bullets
-                .map(
-                  (b) => Chip(
-                    label: Text(b, style: t.labelLarge),
-                    side: BorderSide(
-                      color: scheme.outlineVariant.withValues(alpha: .45),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 10,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                )
-                .toList(),
+            children: skills.map(buildSkillChip).toList(),
           ),
           const SizedBox(height: 36),
 
-          // Subtítulo Experiencia
+          // Experience
           Text(
-            'Experiencia',
+            'Experience',
             style: t.headlineMedium?.copyWith(fontWeight: FontWeight.w800),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+          Column(
+            children: List.generate(
+              exp.length,
+              (i) => Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: buildExpItem(i),
+              ),
+            ),
           ),
           const SizedBox(height: 16),
 
-          // Cards de experiencia
-          Column(
-            children: exp
-                .map(
-                  (e) => Padding(
-                    padding: const EdgeInsets.only(bottom: 16),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(22),
-                      ),
-                      color: scheme.surface.withValues(alpha: 0.10),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 24,
-                          vertical: 22,
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(child: Text(e.$1, style: t.titleLarge)),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(e.$2, style: t.titleMedium),
-                                  const SizedBox(height: 6),
-                                  Text(e.$3, style: t.bodyLarge),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-                .toList(),
+          // Descargar CV
+          OutlinedButton.icon(
+            onPressed: () => _openUrl('assets/GonzaloGarciaCV_06-2.pdf'),
+            icon: const Icon(Icons.file_download),
+            label: const Text('Download CV (PDF)'),
+            style: OutlinedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+            ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Contenedor con la MISMA animación usada en ProjectCard
+/// Contenedor con la MISMA animación/efecto que ProjectCard:
+/// - translateY -2 en hover
+/// - sombra primary a 0.18, blur 20, offset (0, 8)
+/// - cambio de color de borde en hover
+class _HoverCard extends StatefulWidget {
+  const _HoverCard({
+    required this.child,
+    this.onTap,
+    this.borderRadius = 16,
+    this.borderColor,
+    this.hoverBorderColor,
+  });
+
+  final Widget child;
+  final VoidCallback? onTap;
+  final double borderRadius;
+
+  /// Si se pasan, se dibuja el borde igual que en ProjectCard (cambia en hover).
+  final Color? borderColor;
+  final Color? hoverBorderColor;
+
+  @override
+  State<_HoverCard> createState() => _HoverCardState();
+}
+
+class _HoverCardState extends State<_HoverCard> {
+  bool _hover = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+
+    final Color? borderColor = widget.borderColor;
+    final Color? hoverBorder = widget.hoverBorderColor;
+
+    return MouseRegion(
+      onEnter: (_) => setState(() => _hover = true),
+      onExit: (_) => setState(() => _hover = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 160),
+        curve: Curves.easeOut,
+        transform: Matrix4.identity()..translate(0.0, _hover ? -2.0 : 0.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(widget.borderRadius),
+          border: (borderColor != null && hoverBorder != null)
+              ? Border.all(color: _hover ? hoverBorder : borderColor)
+              : null,
+          boxShadow: _hover
+              ? [
+                  BoxShadow(
+                    color: scheme.primary.withValues(alpha: 0.18),
+                    blurRadius: 20,
+                    offset: const Offset(0, 8),
+                  ),
+                ]
+              : const [],
+        ),
+        child: Material(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(widget.borderRadius),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(widget.borderRadius),
+            onTap: widget.onTap,
+            child: widget.child,
+          ),
+        ),
       ),
     );
   }
@@ -289,6 +465,12 @@ class _ContactSection extends StatelessWidget {
             subtitle: '+48 519 116 988',
             icon: Icons.phone,
             url: 'tel:+48519116988',
+          ),
+          _ContactCard(
+            title: 'LinkedIn',
+            subtitle: 'My LinkedIn profile',
+            icon: Icons.work,
+            url: 'https://www.linkedin.com/in/gonzalogarciacv/?locale=en_US',
           ),
         ],
       ),
@@ -385,13 +567,6 @@ class _ContactCardState extends State<_ContactCard> {
                       const SizedBox(height: 4),
                       Text(widget.subtitle, style: t.bodyMedium),
                       const SizedBox(height: 12),
-                      const Text(
-                        'Toca para abrir',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontStyle: FontStyle.italic,
-                        ),
-                      ),
                     ],
                   ),
                 ),

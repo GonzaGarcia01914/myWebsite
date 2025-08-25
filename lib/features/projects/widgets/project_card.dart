@@ -14,7 +14,7 @@ class _ProjectCardState extends State<ProjectCard> {
   bool _hover = false;
   bool _focused = false;
 
-  void _openModal() {
+  void _open() {
     showDialog(
       context: context,
       barrierColor: Colors.black54,
@@ -37,7 +37,7 @@ class _ProjectCardState extends State<ProjectCard> {
       actions: <Type, Action<Intent>>{
         ActivateIntent: CallbackAction<Intent>(
           onInvoke: (_) {
-            _openModal();
+            _open();
             return null;
           },
         ),
@@ -48,8 +48,9 @@ class _ProjectCardState extends State<ProjectCard> {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 160),
           curve: Curves.easeOut,
+          transform: Matrix4.identity()..translate(0.0, _hover ? -2.0 : 0.0),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(16),
             border: Border.all(color: borderColor),
             boxShadow: _hover
                 ? [
@@ -63,10 +64,10 @@ class _ProjectCardState extends State<ProjectCard> {
           ),
           child: Material(
             color: scheme.surface,
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(16),
             child: InkWell(
-              borderRadius: BorderRadius.circular(18),
-              onTap: _openModal,
+              borderRadius: BorderRadius.circular(16),
+              onTap: _open,
               child: Padding(
                 padding: const EdgeInsets.all(18),
                 child: Column(
@@ -76,7 +77,6 @@ class _ProjectCardState extends State<ProjectCard> {
                     const SizedBox(height: 8),
                     Text(widget.project.subtitle, style: t.bodyMedium),
                     const Spacer(),
-                    // 👇 Wrap con aire vertical/horizontal
                     Wrap(
                       spacing: 10,
                       runSpacing: 10,
