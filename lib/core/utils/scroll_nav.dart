@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-// ignore: avoid_web_libraries_in_flutter
-import 'package:web/web.dart' as web;
+import 'web_hash.dart';
 
 class SectionNavController {
   final scrollController = ScrollController();
@@ -23,10 +22,7 @@ class SectionNavController {
     );
 
     // Actualiza la URL con el hash (#id) sin recargar
-    if (kIsWeb) {
-      final base = web.window.location.pathname;
-      web.window.history.replaceState(null, '', '$base#$id');
-    }
+    if (kIsWeb) replaceHash(id);
   }
 
   void dispose() => scrollController.dispose();

@@ -69,7 +69,7 @@ class ResumePage extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: FilledButton.icon(
                   onPressed: () =>
-                      _openAssetPdf('assets/cv/GonzaloGarciaCV_06-2.pdf'),
+                      _openAssetPdf('assets/GonzaloGarciaCV_06-2.pdf'),
                   icon: const Icon(Icons.download),
                   label: const Text('Descargar CV (PDF)'),
                 ),

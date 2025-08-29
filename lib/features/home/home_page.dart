@@ -80,7 +80,9 @@ class _HeroNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = Theme.of(context).textTheme;
-    final topSafe = MediaQuery.paddingOf(context).top + kToolbarHeight;
+    // Alinear con la altura real del AppBar centrado (96px) para evitar solaparse en móvil.
+    const appBarHeight = 96.0;
+    final topSafe = MediaQuery.paddingOf(context).top + appBarHeight;
 
     return Container(
       padding: EdgeInsets.fromLTRB(16, topSafe + 24, 16, 48),
@@ -406,7 +408,7 @@ class _HoverCardState extends State<_HoverCard> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 160),
         curve: Curves.easeOut,
-        transform: Matrix4.identity()..translate(0.0, _hover ? -2.0 : 0.0),
+        transform: Matrix4.translationValues(0.0, _hover ? -2.0 : 0.0, 0.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(widget.borderRadius),
           border: (borderColor != null && hoverBorder != null)
@@ -454,12 +456,12 @@ class _ContactSection extends StatelessWidget {
             icon: Icons.email,
             url: 'mailto:gonzalogarcia01914@gmail.com',
           ),
-          _ContactCard(
-            title: 'Instagram',
-            subtitle: '@gonzagarcia019',
-            icon: Icons.camera_alt_outlined,
-            url: 'https://instagram.com/gonzagarcia019',
-          ),
+          // _ContactCard(
+          //   title: 'Instagram',
+          //   subtitle: '@gonzagarcia019',
+          //   icon: Icons.camera_alt_outlined,
+          //   url: 'https://instagram.com/gonzagarcia019',
+          // ),
           _ContactCard(
             title: 'Teléfono',
             subtitle: '+48 519 116 988',
@@ -471,6 +473,12 @@ class _ContactSection extends StatelessWidget {
             subtitle: 'My LinkedIn profile',
             icon: Icons.work,
             url: 'https://www.linkedin.com/in/gonzalogarciacv/?locale=en_US',
+          ),
+          _ContactCard(
+            title: 'GitHub',
+            subtitle: 'Check out my GitHub',
+            icon: Icons.code,
+            url: 'https://github.com/GonzaGarcia01914',
           ),
         ],
       ),
@@ -534,7 +542,7 @@ class _ContactCardState extends State<_ContactCard> {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 160),
           curve: Curves.easeOut,
-          transform: Matrix4.identity()..translate(0.0, _hover ? -2.0 : 0.0),
+          transform: Matrix4.translationValues(0.0, _hover ? -2.0 : 0.0, 0.0),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: borderColor),

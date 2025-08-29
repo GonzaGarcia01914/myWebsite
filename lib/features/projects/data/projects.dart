@@ -9,14 +9,17 @@ final projects = <Project>[
     githubUrl: 'https://github.com/GonzaGarcia01914/movies',
     codeEmbedUrl:
         'https://gonzagarcia01914.github.io/movies/code.html?owner=GonzaGarcia01914&repo=movies&branch=main', // opcional; si no lo pones, se infiere.
-    playUrl: 'https://play.google.com/store/apps/details?id=<PAQUETE>',
+    playUrl: null,
     tags: [
       'Flutter',
       'Riverpod',
       'GoRouter',
       'Firebase Functions',
       'RESTful API',
+      'GitHub',
     ],
+    emulateMobileDemo: false,
+    emulateTabletDemo: true,
     summary: '''
 Flutter Movies Portfolio is a mobile application built with Flutter, designed to showcase my expertise in cross-platform development and external service integration. 
 
@@ -27,16 +30,30 @@ This project is part of my professional portfolio, aimed at demonstrating best p
   ),
 
   Project(
-    title: 'Tu proyecto #2',
+    emulateMobileDemo: false,
+    emulateTabletDemo: true,
+    title: 'Mestura - Your cooking AI assistant',
     subtitle: 'Descripción corta',
-    demoUrl: null, // si no tienes demo web
-    githubUrl: 'https://github.com/<TU-USER>/<repo-2>', // TODO
-    codeEmbedUrl: null,
+    demoUrl:
+        'https://gonzagarcia01914.github.io/mestura-cooking-app/', // si no tienes demo web
+    githubUrl:
+        'https://github.com/GonzaGarcia01914/mestura-cooking-app', // TODO
+    codeEmbedUrl:
+        'https://gonzagarcia01914.github.io/mestura-cooking-app/code.html?owner=GonzaGarcia01914&repo=mestura-cooking-app&branch=main',
     playUrl: null,
-    tags: ['Flutter'],
+    tags: [
+      'Flutter',
+      'Riverpod',
+      'Firebase',
+      'ADmob',
+      'RESTful API',
+      "GenAI",
+      'GitHub',
+    ],
   ),
 
   Project(
+    emulateMobileDemo: true,
     title: 'This page was also made with Flutter!',
     subtitle: 'El propio portfolio construido con Flutter Web',
     showDemo: false, // ⟵ oculta pestaña Demo

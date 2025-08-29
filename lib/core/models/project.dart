@@ -16,6 +16,10 @@ class Project {
 
   /// Si es false, no se muestra la pestaña Demo (útil para esta misma web).
   final bool showDemo;
+  /// Si es true, la pestaña Demo se renderiza dentro de un marco tipo móvil.
+  final bool emulateMobileDemo;
+  /// Si es true, la pestaña Demo se renderiza dentro de un marco tipo tablet en horizontal.
+  final bool emulateTabletDemo;
 
   const Project({
     required this.title,
@@ -28,5 +32,7 @@ class Project {
     this.id,
     this.summary,
     this.showDemo = true, // por defecto sí mostramos demo
+    this.emulateMobileDemo = false,
+    this.emulateTabletDemo = false,
   });
 }

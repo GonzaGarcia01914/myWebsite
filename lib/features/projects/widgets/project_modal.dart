@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/models/project.dart';
 import '../../../core/widgets/web_demo_view.dart'; // IFrame helper
+import '../../../core/widgets/phone_frame.dart';
 
 class ProjectModal extends StatefulWidget {
   const ProjectModal({super.key, required this.project});
@@ -68,6 +69,11 @@ class _ProjectModalState extends State<ProjectModal>
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final t = Theme.of(context).textTheme;
+    final size = MediaQuery.of(context).size;
+    final inset = EdgeInsets.symmetric(
+      horizontal: size.width < 600 ? 12 : 24,
+      vertical: size.height < 700 ? 12 : 24,
+    );
 
     final hasDemo =
         widget.project.showDemo && (widget.project.demoUrl ?? '').isNotEmpty;
@@ -81,15 +87,89 @@ class _ProjectModalState extends State<ProjectModal>
       views.add(
         Padding(
           padding: const EdgeInsets.all(12.0),
-          child: Card(
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(14),
-              child: WebDemoView(url: widget.project.demoUrl!),
-            ),
+          child: Builder(
+            builder: (context) {
+              final emulateMobile = widget.project.emulateMobileDemo;
+              final emulateTablet = widget.project.emulateTabletDemo;
+              final demo = WebDemoView(url: widget.project.demoUrl!);
+              Widget content;
+              if (!emulateMobile && !emulateTablet) {
+                content = Card(
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(14),
+                    child: demo,
+                  ),
+                );
+              } else if (emulateTablet) {
+                // Tablet en horizontal
+                content = Center(
+                  child: PhoneFrame(
+                    maxWidth: 1024,
+                    aspect: 3 / 4, // landscape tablet (height/width)
+                    bezel: 14,
+                    cornerRadius: 32,
+                    screenRadius: 24,
+                    child: Transform.scale(
+                      scale: 0.9, // ligero zoom-out para encajar mejor
+                      alignment: Alignment.center,
+                      child: demo,
+                    ),
+                  ),
+                );
+              } else {
+                // Móvil alto
+                content = Center(
+                  child: PhoneFrame(
+                    maxWidth: 420,
+                    aspect: 19.5 / 9.0,
+                    bezel: 12,
+                    child: Transform.scale(
+                      scale: 0.95,
+                      alignment: Alignment.center,
+                      child: demo,
+                    ),
+                  ),
+                );
+              }
+
+              // Warning banner above demo
+              final banner = Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 10,
+                ),
+                decoration: BoxDecoration(
+                  color: scheme.secondary.withValues(alpha: .08),
+                  border: Border.all(
+                    color: scheme.outlineVariant.withValues(alpha: .35),
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(Icons.info_outline, size: 18),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        'Keep in mind that this project was designed for mobile devices; this is a representative web demo.',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [banner, const SizedBox(height: 10), content],
+              );
+            },
           ),
         ),
       );
@@ -184,17 +264,17 @@ class _ProjectModalState extends State<ProjectModal>
 
     return Dialog(
       backgroundColor: scheme.surface.withValues(alpha: .95),
-      insetPadding: const EdgeInsets.all(24),
+      insetPadding: inset,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(22),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
           child: ConstrainedBox(
-            constraints: const BoxConstraints(
+            constraints: BoxConstraints(
               maxWidth: 1100,
-              minHeight: 520,
-              maxHeight: 720,
+              minHeight: (size.height * 0.85).clamp(420, 520),
+              maxHeight: (size.height * 0.95).clamp(520, 720),
             ),
             child: Column(
               children: [
