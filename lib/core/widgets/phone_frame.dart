@@ -11,7 +11,6 @@ class PhoneFrame extends StatelessWidget {
     this.bezel = 12.0,
     this.cornerRadius = 42.0,
     this.screenRadius = 32.0,
-    this.contentScale = 1.0,
   });
 
   final Widget child;
@@ -20,7 +19,6 @@ class PhoneFrame extends StatelessWidget {
   final double bezel; // outer frame thickness
   final double cornerRadius;
   final double screenRadius;
-  final double contentScale;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +29,9 @@ class PhoneFrame extends StatelessWidget {
         final height = width * aspect;
 
         final scheme = Theme.of(context).colorScheme;
-        final frameColor = scheme.surfaceVariant.withValues(alpha: 0.90);
+        final frameColor = scheme.surfaceContainerHighest.withValues(
+          alpha: 0.90,
+        );
         final screenBg = scheme.surface;
 
         return Center(
@@ -57,17 +57,9 @@ class PhoneFrame extends StatelessWidget {
                   child: Stack(
                     children: [
                       // Screen background
-                      Positioned.fill(
-                        child: ColoredBox(color: screenBg),
-                      ),
+                      Positioned.fill(child: ColoredBox(color: screenBg)),
                       // Content
-                      Positioned.fill(
-                        child: Transform.scale(
-                          scale: contentScale,
-                          alignment: Alignment.center,
-                          child: child,
-                        ),
-                      ),
+                      Positioned.fill(child: child),
                       // Simple notch stub (optional)
                       Positioned(
                         top: 0,
