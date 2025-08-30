@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../core/utils/scroll_nav.dart';
 import '../../core/widgets/app_shell.dart';
 import '../../features/projects/data/projects.dart';
+import '../../l10n/app_localizations.dart';
 import '../../features/projects/widgets/project_card.dart';
 import '../../l10n/app_localizations.dart';
 
@@ -106,8 +107,8 @@ class _HeroNav extends StatelessWidget {
                 final desc = AppLocalizations.of(context)!.heroDescription;
                 final lang = Localizations.localeOf(context).languageCode;
                 final highlights = lang == 'es'
-                    ? ['Flutter', '4 años', 'GenAI']
-                    : ['Flutter', '4 years', 'Generative AI'];
+                    ? ['4 años', 'Flutter', 'GenAI']
+                    : ['4 years', 'Flutter', 'Generative AI'];
 
                 List<TextSpan> spans = [];
                 String remaining = desc;
@@ -159,8 +160,10 @@ class _ProjectsSection extends StatelessWidget {
               : w >= 900
               ? 2
               : 1;
+          final t = AppLocalizations.of(context)!;
+          final list = localizedProjects(t);
           return GridView.builder(
-            itemCount: projects.length,
+            itemCount: list.length,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -170,7 +173,7 @@ class _ProjectsSection extends StatelessWidget {
               crossAxisSpacing: 24, // espacio horizontal
               mainAxisSpacing: 24, //  espacio vertical
             ),
-            itemBuilder: (_, i) => ProjectCard(project: projects[i]),
+            itemBuilder: (_, i) => ProjectCard(project: list[i]),
           );
         },
       ),
@@ -202,6 +205,7 @@ class _ResumeSectionState extends State<_ResumeSection> {
   Widget build(BuildContext context) {
     final t = Theme.of(context).textTheme;
     final scheme = Theme.of(context).colorScheme;
+    final s = AppLocalizations.of(context)!;
 
     // SKILLS
     final skills = const [
@@ -223,24 +227,19 @@ class _ResumeSectionState extends State<_ResumeSection> {
         title: 'Cognizant (Google Cloud)',
         role: 'Generative AI — SME · Flutter',
         period: '08/2024 to 04/2025',
-        desc:
-            'My most recen project was as a Generative AI Subject Matter Expert (SME) at Cognizant, within the Google Cloud project. '
-            'My role involved developing applications using Flutter and integrating Google Cloud’s AI solutions to deliver innovative experiences for our clients.',
+        desc: s.exp1Desc,
       ),
       (
         title: 'Microsoft / LTIM',
-        role: 'Azure App Services · Plataforma',
+        role: 'Azure App Services · Cloud Engineer',
         period: '10/2023 to 08/2024',
-        desc:
-            'I worked as part of Microsoft Azure App Services team, in the diagnosis and resolution of platform and software issues, '
-            'mainly related with Networking and Certificates.',
+        desc: s.exp2Desc,
       ),
       (
         title: 'La Plata',
         role: 'Flutter/Dart Developer',
         period: '03/2020 to 06/2023',
-        desc:
-            'I worked on the development of multi platform applications mainly with flutter-dart.',
+        desc: s.exp3Desc,
       ),
     ];
 

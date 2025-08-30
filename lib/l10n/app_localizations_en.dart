@@ -108,7 +108,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exp2Company => 'Microsoft / LTIM';
 
   @override
-  String get exp2Role => 'Azure App Services — Platform support';
+  String get exp2Role => 'Azure App Services — Cloud Engineer';
 
   @override
   String get exp2Period => '10/2023 – 08/2024';
@@ -144,11 +144,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get summaryMestura => 'AI cooking assistant that generates recipes from ingredients or cravings. Adjust servings, time and skill level; respects diets and restrictions. Includes step‑by‑step cooking mode with timers, offline favorites + shopping list, deep links and multi‑language support. Monetized with spaced interstitial ads.';
 
   @override
-  String get exp1Desc => 'Built Flutter apps integrated with Google Cloud AI; served as SME for Generative AI; focused on UX, performance, and end-to-end traceability.';
+  String get exp1Desc => 'As Generative AI Subject Matter Expert (SME) at Cognizant within the Google Cloud project, I led the development of Flutter applications integrating Google Cloud’s AI solutions. My role focused on delivering innovative client experiences by combining advanced AI capabilities with intuitive UX. I also ensured high performance and full end-to-end traceability across the applications.';
 
   @override
-  String get exp2Desc => 'Worked with Microsoft Azure App Services resolving platform issues (networking, certificates); improved reliability and response times.';
+  String get exp2Desc => 'During my time with Microsoft Azure App Services (through LTIMindtree), I worked on diagnosing and resolving complex platform and software issues, with an emphasis on networking and certificates. I contributed to improving service reliability, reducing response times, and ensuring seamless operation of critical cloud services for enterprise clients.';
 
   @override
-  String get exp3Desc => 'Developed cross-platform applications with Flutter/Dart; integrated third-party services and applied clean architecture practices.';
+  String get exp3Desc => 'I participated in the development of cross-platform applications using Flutter and Dart, with a strong focus on clean architecture principles. My responsibilities included integrating third-party services, designing maintainable code structures, and ensuring scalability. These projects strengthened my ability to deliver robust, user-centered mobile and web applications.';
+
+  @override
+  String get projectMoviesTitle => 'Flutter Movies Portfolio';
+
+  @override
+  String get projectMoviesSubtitle => 'TMDb explorer, favorites and cache; Firebase Functions proxy backend.';
+
+  @override
+  String get projectMesturaTitle => 'Mestura – Your cooking AI assistant';
+
+  @override
+  String get projectMesturaSubtitle => 'AI‑powered assistant to generate and cook recipes.';
+
+  @override
+  String get projectPortfolioTitle => 'This page was also made with Flutter!';
+
+  @override
+  String get projectPortfolioSubtitle => 'This portfolio built with Flutter Web';
 }

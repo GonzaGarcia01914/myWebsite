@@ -296,7 +296,7 @@ abstract class AppLocalizations {
   /// No description provided for @exp2Role.
   ///
   /// In en, this message translates to:
-  /// **'Azure App Services — Platform support'**
+  /// **'Azure App Services — Cloud Engineer'**
   String get exp2Role;
 
   /// No description provided for @exp2Period.
@@ -368,20 +368,56 @@ abstract class AppLocalizations {
   /// No description provided for @exp1Desc.
   ///
   /// In en, this message translates to:
-  /// **'Built Flutter apps integrated with Google Cloud AI; served as SME for Generative AI; focused on UX, performance, and end-to-end traceability.'**
+  /// **'As Generative AI Subject Matter Expert (SME) at Cognizant within the Google Cloud project, I led the development of Flutter applications integrating Google Cloud’s AI solutions. My role focused on delivering innovative client experiences by combining advanced AI capabilities with intuitive UX. I also ensured high performance and full end-to-end traceability across the applications.'**
   String get exp1Desc;
 
   /// No description provided for @exp2Desc.
   ///
   /// In en, this message translates to:
-  /// **'Worked with Microsoft Azure App Services resolving platform issues (networking, certificates); improved reliability and response times.'**
+  /// **'During my time with Microsoft Azure App Services (through LTIMindtree), I worked on diagnosing and resolving complex platform and software issues, with an emphasis on networking and certificates. I contributed to improving service reliability, reducing response times, and ensuring seamless operation of critical cloud services for enterprise clients.'**
   String get exp2Desc;
 
   /// No description provided for @exp3Desc.
   ///
   /// In en, this message translates to:
-  /// **'Developed cross-platform applications with Flutter/Dart; integrated third-party services and applied clean architecture practices.'**
+  /// **'I participated in the development of cross-platform applications using Flutter and Dart, with a strong focus on clean architecture principles. My responsibilities included integrating third-party services, designing maintainable code structures, and ensuring scalability. These projects strengthened my ability to deliver robust, user-centered mobile and web applications.'**
   String get exp3Desc;
+
+  /// No description provided for @projectMoviesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Flutter Movies Portfolio'**
+  String get projectMoviesTitle;
+
+  /// No description provided for @projectMoviesSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'TMDb explorer, favorites and cache; Firebase Functions proxy backend.'**
+  String get projectMoviesSubtitle;
+
+  /// No description provided for @projectMesturaTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mestura – Your cooking AI assistant'**
+  String get projectMesturaTitle;
+
+  /// No description provided for @projectMesturaSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI‑powered assistant to generate and cook recipes.'**
+  String get projectMesturaSubtitle;
+
+  /// No description provided for @projectPortfolioTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This page was also made with Flutter!'**
+  String get projectPortfolioTitle;
+
+  /// No description provided for @projectPortfolioSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This portfolio built with Flutter Web'**
+  String get projectPortfolioSubtitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

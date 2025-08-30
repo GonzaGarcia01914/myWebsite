@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../data/projects.dart';
+import '../../../l10n/app_localizations.dart';
 import '../widgets/project_card.dart';
 
 class ProjectsPage extends StatelessWidget {
@@ -17,6 +18,8 @@ class ProjectsPage extends StatelessWidget {
               : w >= 900
               ? 2
               : 1;
+          final t = AppLocalizations.of(context)!;
+          final list = localizedProjects(t);
           return Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 1400),
@@ -24,7 +27,7 @@ class ProjectsPage extends StatelessWidget {
                 crossAxisCount: cols,
                 childAspectRatio: 1.2,
                 padding: const EdgeInsets.all(16),
-                children: projects.map((p) => ProjectCard(project: p)).toList(),
+                children: list.map((p) => ProjectCard(project: p)).toList(),
               ),
             ),
           );

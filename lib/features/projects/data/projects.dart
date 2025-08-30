@@ -1,4 +1,5 @@
 import '../../../core/models/project.dart';
+import '../../../l10n/app_localizations.dart';
 
 final projects = <Project>[
   Project(
@@ -93,5 +94,65 @@ UX cuidada: interfaz ligera, fondo animado y componentes reutilizables con un si
     tags: ['FlutterWeb', 'Riverpod', 'GoRouter', 'ResponsiveDesign', "Github"],
     summary:
         'Portafolio web (Flutter Web) con navegación por secciones y modal de proyectos. Cada proyecto incluye demo embebida (con marco de móvil/tablet), visor de código conectado a GitHub y descripción con tags. UI animada con Material 3, diseño responsive y soporte de foco/teclado. Implementado con Riverpod + GoRouter y publicado en GitHub Pages, priorizando rendimiento, accesibilidad y una experiencia limpia y moderna.',
+  ),
+];
+
+/// Returns the list of projects with localized title, subtitle and summary.
+List<Project> localizedProjects(AppLocalizations t) => <Project>[
+  Project(
+    id: 'movies',
+    title: 'MoviMe',
+    subtitle: t.projectMoviesSubtitle,
+    summary: t.summaryMovies,
+    demoUrl: 'https://gonzagarcia01914.github.io/movies/',
+    githubUrl: 'https://github.com/GonzaGarcia01914/movies',
+    codeEmbedUrl:
+        'https://gonzagarcia01914.github.io/movies/code.html?owner=GonzaGarcia01914&repo=movies&branch=main',
+    playUrl: null,
+    tags: [
+      'Flutter',
+      'Riverpod',
+      'GoRouter',
+      'Firebase Functions',
+      'RESTful API',
+      'GitHub',
+    ],
+    emulateMobileDemo: false,
+    emulateTabletDemo: true,
+  ),
+  Project(
+    id: 'mestura',
+    title: t.projectMesturaTitle,
+    subtitle: t.projectMesturaSubtitle,
+    summary: t.summaryMestura,
+    emulateMobileDemo: false,
+    emulateTabletDemo: true,
+    demoUrl: 'https://gonzagarcia01914.github.io/mestura-cooking-app/',
+    githubUrl: 'https://github.com/GonzaGarcia01914/mestura-cooking-app',
+    codeEmbedUrl:
+        'https://gonzagarcia01914.github.io/mestura-cooking-app/code.html?owner=GonzaGarcia01914&repo=mestura-cooking-app&branch=main',
+    playUrl: null,
+    tags: [
+      'Flutter',
+      'Riverpod',
+      'Firebase',
+      'ADmob',
+      'RESTful API',
+      'GenAI',
+      'GitHub',
+    ],
+  ),
+  Project(
+    id: 'portfolio',
+    emulateMobileDemo: true,
+    title: t.projectPortfolioTitle,
+    subtitle: t.projectPortfolioSubtitle,
+    summary: t.summaryPortfolio,
+    showDemo: false,
+    demoUrl: null,
+    githubUrl: 'https://github.com/GonzaGarcia01914/myWebsite.git',
+    codeEmbedUrl:
+        '/code.html?owner=GonzaGarcia01914&repo=myWebsite&branch=main',
+    tags: ['FlutterWeb', 'Riverpod', 'GoRouter', 'ResponsiveDesign', 'Github'],
   ),
 ];
