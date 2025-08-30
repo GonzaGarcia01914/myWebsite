@@ -142,4 +142,13 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get summaryMestura => 'Asistente de cocina con IA que genera recetas a partir de ingredientes o antojos. Ajusta raciones, tiempo y nivel; respeta dietas y restricciones. Incluye modo paso a paso con temporizadores, favoritos y lista de la compra offline, deep links y soporte multidioma. Monetización con anuncios intersticiales espaciados.';
+
+  @override
+  String get exp1Desc => 'Desarrollé apps Flutter integradas con Google Cloud AI; rol de SME en IA generativa; enfoque en UX, rendimiento y trazabilidad end-to-end.';
+
+  @override
+  String get exp2Desc => 'Trabajé con Microsoft Azure App Services resolviendo issues de plataforma (networking, certificados); mejoré la fiabilidad y los tiempos de respuesta.';
+
+  @override
+  String get exp3Desc => 'Desarrollé aplicaciones multiplataforma con Flutter/Dart; integré servicios de terceros y apliqué prácticas de arquitectura limpia.';
 }

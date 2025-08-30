@@ -364,6 +364,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'AI cooking assistant that generates recipes from ingredients or cravings. Adjust servings, time and skill level; respects diets and restrictions. Includes step‑by‑step cooking mode with timers, offline favorites + shopping list, deep links and multi‑language support. Monetized with spaced interstitial ads.'**
   String get summaryMestura;
+
+  /// No description provided for @exp1Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Built Flutter apps integrated with Google Cloud AI; served as SME for Generative AI; focused on UX, performance, and end-to-end traceability.'**
+  String get exp1Desc;
+
+  /// No description provided for @exp2Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Worked with Microsoft Azure App Services resolving platform issues (networking, certificates); improved reliability and response times.'**
+  String get exp2Desc;
+
+  /// No description provided for @exp3Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Developed cross-platform applications with Flutter/Dart; integrated third-party services and applied clean architecture practices.'**
+  String get exp3Desc;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
