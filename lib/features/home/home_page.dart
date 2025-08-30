@@ -101,36 +101,40 @@ class _HeroNav extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            Builder(builder: (context) {
-              final desc = AppLocalizations.of(context)!.heroDescription;
-              final lang = Localizations.localeOf(context).languageCode;
-              final highlights = lang == 'es'
-                  ? ['Flutter/Dart', '4 años', 'GenAI']
-                  : ['Flutter/Dart', '4+ years', 'GenAI'];
+            Builder(
+              builder: (context) {
+                final desc = AppLocalizations.of(context)!.heroDescription;
+                final lang = Localizations.localeOf(context).languageCode;
+                final highlights = lang == 'es'
+                    ? ['Flutter', '4 años', 'GenAI']
+                    : ['Flutter', '4 years', 'Generative AI'];
 
-              List<TextSpan> spans = [];
-              String remaining = desc;
-              for (final h in highlights) {
-                final idx = remaining.toLowerCase().indexOf(h.toLowerCase());
-                if (idx == -1) continue;
-                final before = remaining.substring(0, idx);
-                final match = remaining.substring(idx, idx + h.length);
-                spans.add(TextSpan(text: before));
-                spans.add(TextSpan(
-                  text: match,
-                  style: t.titleMedium?.copyWith(
-                    fontWeight: FontWeight.w800,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ));
-                remaining = remaining.substring(idx + h.length);
-              }
-              spans.add(TextSpan(text: remaining));
-              return Text.rich(
-                TextSpan(children: spans, style: t.titleMedium),
-                textAlign: TextAlign.center,
-              );
-            }),
+                List<TextSpan> spans = [];
+                String remaining = desc;
+                for (final h in highlights) {
+                  final idx = remaining.toLowerCase().indexOf(h.toLowerCase());
+                  if (idx == -1) continue;
+                  final before = remaining.substring(0, idx);
+                  final match = remaining.substring(idx, idx + h.length);
+                  spans.add(TextSpan(text: before));
+                  spans.add(
+                    TextSpan(
+                      text: match,
+                      style: t.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w800,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  );
+                  remaining = remaining.substring(idx + h.length);
+                }
+                spans.add(TextSpan(text: remaining));
+                return Text.rich(
+                  TextSpan(children: spans, style: t.titleMedium),
+                  textAlign: TextAlign.center,
+                );
+              },
+            ),
           ],
         ),
       ),

@@ -146,7 +146,7 @@ abstract class AppLocalizations {
   /// No description provided for @heroDescription.
   ///
   /// In en, this message translates to:
-  /// **'Software engineer with 4 years of experience in Flutter, cloud services, and Generative AI. I design and ship fast, accessible mobile apps, integrating LLMs and end-to-end automations. Obsessed with measuring, optimizing, and scaling without drama.'**
+  /// **'Software developer with 4 years of experience in Flutter, cloud services, and Generative AI. I design and ship fast, accessible mobile apps, integrating LLMs and end-to-end automations. Obsessed with measuring, optimizing, and scaling without drama.'**
   String get heroDescription;
 
   /// No description provided for @resumeMySkills.

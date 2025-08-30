@@ -7,7 +7,7 @@
   "sectionResume": "Currículum",
   "sectionContact": "Contacto",
   "heroTitle": "Gonzalo García",
-  "heroDescription": "Ingeniero de software con 4 años de experiencia en Flutter, servicios cloud y GenAI. Diseño y lanzo apps móviles rápidas y accesibles, integrando LLMs y automatizaciones end-to-end. Obsesión: medir, optimizar y escalar.",
+  "heroDescription": "Desarrollador de software con 4 años de experiencia en Flutter, servicios cloud y GenAI. Diseño y lanzo apps móviles rápidas y accesibles, integrando LLMs y automatizaciones end-to-end. Obsesión: medir, optimizar y escalar.",
   "resumeMySkills": "Mis habilidades",
   "resumeExperience": "Experiencia",
   "resumeDownloadCv": "Descargar CV (PDF)",
@@ -26,24 +26,20 @@
   "contactLinkedin": "LinkedIn",
   "contactGithub": "GitHub",
   "contactTapToOpen": "Toca para abrir",
-
   "exp1Company": "Cognizant (Google Cloud)",
   "exp1Role": "Generative AI — SME · Flutter",
   "exp1Period": "08/2024 – 04/2025",
   "exp1Bullet1": "Desarrollo de apps Flutter integradas con soluciones de IA de Google Cloud.",
   "exp1Bullet2": "Enfoque en UX, rendimiento y trazabilidad end‑to‑end.",
-
   "exp2Company": "Microsoft / LTIM",
   "exp2Role": "Azure App Services — Soporte de plataforma",
   "exp2Period": "10/2023 – 08/2024",
   "exp2Bullet1": "Diagnóstico y resolución de issues de plataforma (networking, certificados).",
   "exp2Bullet2": "Mejora de fiabilidad y tiempos de respuesta.",
-
   "exp3Company": "La Plata",
   "exp3Role": "Flutter/Dart Developer",
   "exp3Period": "03/2020 – 06/2023",
   "exp3Bullet1": "Desarrollo de aplicaciones multiplataforma con Flutter/Dart.",
   "exp3Bullet2": "Integración de servicios y buenas prácticas de arquitectura.",
-
   "summaryPortfolio": "Portafolio web (Flutter Web) con navegación por secciones y modal de proyectos. Cada proyecto incluye demo embebida (con marco de móvil/tablet), visor de código conectado a GitHub y descripción con tags. UI animada con Material 3, diseño responsive, soporte de foco/teclado y despliegue en GitHub Pages."
 }

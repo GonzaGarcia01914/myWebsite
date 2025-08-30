@@ -33,7 +33,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get heroTitle => 'Gonzalo García';
 
   @override
-  String get heroDescription => 'Software engineer with 4 years of experience in Flutter, cloud services, and Generative AI. I design and ship fast, accessible mobile apps, integrating LLMs and end-to-end automations. Obsessed with measuring, optimizing, and scaling without drama.';
+  String get heroDescription => 'Software developer with 4 years of experience in Flutter, cloud services, and Generative AI. I design and ship fast, accessible mobile apps, integrating LLMs and end-to-end automations. Obsessed with measuring, optimizing, and scaling without drama.';
 
   @override
   String get resumeMySkills => 'My skills';
