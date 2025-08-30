@@ -136,4 +136,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get summaryPortfolio => 'Portafolio web (Flutter Web) con navegación por secciones y modal de proyectos. Cada proyecto incluye demo embebida (con marco de móvil/tablet), visor de código conectado a GitHub y descripción con tags. UI animada con Material 3, diseño responsive, soporte de foco/teclado y despliegue en GitHub Pages.';
+
+  @override
+  String get summaryMovies => 'App móvil para explorar contenido de TMDb (cartelera, populares, búsqueda, ficha, reparto y recomendaciones). Usa un proxy en Firebase Cloud Functions para proteger claves y servir datos, demostrando arquitectura limpia, gestión de estado e integración de nivel producción.';
+
+  @override
+  String get summaryMestura => 'Asistente de cocina con IA que genera recetas a partir de ingredientes o antojos. Ajusta raciones, tiempo y nivel; respeta dietas y restricciones. Incluye modo paso a paso con temporizadores, favoritos y lista de la compra offline, deep links y soporte multidioma. Monetización con anuncios intersticiales espaciados.';
 }
