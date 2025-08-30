@@ -23,11 +23,10 @@ class _ProjectModalState extends State<ProjectModal>
   void initState() {
     super.initState();
 
-    // Construimos el número de pestañas dinámicamente:
-    // Demo (si procede) + Code + Descripción
+    // Demo (si procede) + Código + Descripción
     final hasDemo =
         widget.project.showDemo && (widget.project.demoUrl ?? '').isNotEmpty;
-    final length = (hasDemo ? 1 : 0) + 2; // +2 por Code y Descripción
+    final length = (hasDemo ? 1 : 0) + 2;
     _tabs = TabController(length: length, vsync: this);
   }
 
@@ -71,28 +70,56 @@ class _ProjectModalState extends State<ProjectModal>
     final scheme = Theme.of(context).colorScheme;
     final t = Theme.of(context).textTheme;
     final size = MediaQuery.of(context).size;
+    final isPhone = size.width < 480;
     final inset = EdgeInsets.symmetric(
       horizontal: size.width < 600 ? 12 : 24,
       vertical: size.height < 700 ? 12 : 24,
     );
 
+    final loc = AppLocalizations.of(context)!;
+
     final hasDemo =
         widget.project.showDemo && (widget.project.demoUrl ?? '').isNotEmpty;
 
-    // ---------- Armamos tabs y vistas ----------
+    // ---------- Tabs + vistas ----------
     final tabs = <Tab>[];
     final views = <Widget>[];
 
     if (hasDemo) {
-      tabs.add(const Tab(text: 'Demo'));
+      tabs.add(Tab(text: loc.tabDemo));
       views.add(
         Padding(
           padding: const EdgeInsets.all(12.0),
           child: Builder(
             builder: (context) {
+              // En móvil SOLO botón centrado (sin iframe)
+              if (isPhone) {
+                // Fallback simple para el texto "Abrir demo" sin romper i18n
+                final lang = Localizations.localeOf(context).languageCode;
+                final openDemoLabel = (lang == 'es')
+                    ? 'Abrir demo'
+                    : 'Open demo';
+
+                return Center(
+                  child: FilledButton.icon(
+                    onPressed: () => _openUrl(widget.project.demoUrl!),
+                    icon: const Icon(Icons.smartphone),
+                    label: Text(openDemoLabel),
+                    style: FilledButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 18,
+                        vertical: 14,
+                      ),
+                    ),
+                  ),
+                );
+              }
+
+              // Tablet/desktop: embeber demo + banner
               final emulateMobile = widget.project.emulateMobileDemo;
               final emulateTablet = widget.project.emulateTabletDemo;
               final demo = WebDemoView(url: widget.project.demoUrl!);
+
               Widget content;
               if (!emulateMobile && !emulateTablet) {
                 content = Card(
@@ -106,23 +133,21 @@ class _ProjectModalState extends State<ProjectModal>
                   ),
                 );
               } else if (emulateTablet) {
-                // Tablet en horizontal
                 content = Center(
                   child: PhoneFrame(
                     maxWidth: 1024,
-                    aspect: 3 / 4, // landscape tablet (height/width)
+                    aspect: 3 / 4,
                     bezel: 14,
                     cornerRadius: 32,
                     screenRadius: 24,
                     child: Transform.scale(
-                      scale: 0.9, // ligero zoom-out para encajar mejor
+                      scale: 0.9,
                       alignment: Alignment.center,
                       child: demo,
                     ),
                   ),
                 );
               } else {
-                // Móvil alto
                 content = Center(
                   child: PhoneFrame(
                     maxWidth: 420,
@@ -137,7 +162,6 @@ class _ProjectModalState extends State<ProjectModal>
                 );
               }
 
-              // Warning banner above demo
               final banner = Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(
@@ -158,7 +182,7 @@ class _ProjectModalState extends State<ProjectModal>
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'Keep in mind that this project was designed for mobile devices; this is a representative web demo.',
+                        loc.demoBanner,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ),
@@ -181,7 +205,6 @@ class _ProjectModalState extends State<ProjectModal>
     }
 
     // CODE
-    final loc = AppLocalizations.of(context)!;
     tabs.add(Tab(text: loc.tabCode));
     views.add(
       Padding(
@@ -197,13 +220,13 @@ class _ProjectModalState extends State<ProjectModal>
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Text('No hay visor de código configurado.'),
+                    Text(loc.codeViewerMissing),
                     const SizedBox(height: 12),
                     if (widget.project.githubUrl != null)
                       FilledButton.icon(
                         onPressed: () => _openUrl(widget.project.githubUrl!),
                         icon: const Icon(Icons.code),
-                        label: const Text('Abrir en GitHub'),
+                        label: Text(loc.btnOpenOnGithub),
                       ),
                   ],
                 ),
@@ -231,7 +254,7 @@ class _ProjectModalState extends State<ProjectModal>
     );
 
     // DESCRIPCIÓN
-    tabs.add(const Tab(text: 'Descripción'));
+    tabs.add(Tab(text: loc.tabDescription));
     views.add(
       SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -262,8 +285,7 @@ class _ProjectModalState extends State<ProjectModal>
             ),
             const SizedBox(height: 14),
             if (widget.project.id == 'portfolio')
-              Text(AppLocalizations.of(context)!.summaryPortfolio,
-                  style: t.bodyLarge)
+              Text(loc.summaryPortfolio, style: t.bodyLarge)
             else if ((widget.project.summary ?? '').isNotEmpty)
               Text(widget.project.summary!, style: t.bodyLarge),
           ],
@@ -290,32 +312,65 @@ class _ProjectModalState extends State<ProjectModal>
                 // ---------- Header ----------
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 16, 12, 8),
-                  child: Row(
+                  child: Column(
+                    crossAxisAlignment: isPhone
+                        ? CrossAxisAlignment.center
+                        : CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: Text(widget.project.title, style: t.titleLarge),
+                      // TÍTULO ARRIBA
+                      Text(
+                        widget.project.title,
+                        style: t.titleLarge?.copyWith(
+                          fontWeight: FontWeight.w800,
+                        ),
+                        textAlign: isPhone ? TextAlign.center : TextAlign.start,
                       ),
-                      if (widget.project.playUrl != null)
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: FilledButton.icon(
-                            onPressed: () => _openUrl(widget.project.playUrl!),
-                            icon: const Icon(Icons.shop_2),
-                            label: const Text('Google Play'),
+                      const SizedBox(height: 12),
+                      // Fila con botones (GitHub/Play) + X
+                      Row(
+                        mainAxisAlignment: isPhone
+                            ? MainAxisAlignment.center
+                            : MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (widget.project.playUrl != null)
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 8),
+                                  child: FilledButton.icon(
+                                    onPressed: () =>
+                                        _openUrl(widget.project.playUrl!),
+                                    icon: const Icon(Icons.shop_2),
+                                    label: Text(loc.btnGooglePlay),
+                                  ),
+                                ),
+                              if (widget.project.githubUrl != null)
+                                OutlinedButton.icon(
+                                  onPressed: () =>
+                                      _openUrl(widget.project.githubUrl!),
+                                  icon: const Icon(Icons.code),
+                                  label: Text(loc.btnOpenGithub),
+                                ),
+                            ],
+                          ),
+                          if (!isPhone)
+                            IconButton(
+                              icon: const Icon(Icons.close),
+                              onPressed: () => Navigator.of(context).pop(),
+                              tooltip: loc.tooltipClose,
+                            ),
+                        ],
+                      ),
+                      if (isPhone) // En móvil, la X en su propia fila a la derecha
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: IconButton(
+                            icon: const Icon(Icons.close),
+                            onPressed: () => Navigator.of(context).pop(),
+                            tooltip: loc.tooltipClose,
                           ),
                         ),
-                      if (widget.project.githubUrl != null)
-                        OutlinedButton.icon(
-                          onPressed: () => _openUrl(widget.project.githubUrl!),
-                          icon: const Icon(Icons.code),
-                          label: const Text('Check it on GitHub!'),
-                        ),
-                      const SizedBox(width: 8),
-                      IconButton(
-                        icon: const Icon(Icons.close),
-                        onPressed: () => Navigator.of(context).pop(),
-                        tooltip: 'Cerrar',
-                      ),
                     ],
                   ),
                 ),

@@ -33,7 +33,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get heroTitle => 'Gonzalo García';
 
   @override
-  String get heroDescription => 'Desarrollador de software con 4 años de experiencia en Flutter, servicios cloud y GenAI. Diseño y lanzo apps móviles rápidas y accesibles, integrando LLMs y automatizaciones end-to-end. Obsesión: medir, optimizar y escalar.';
+  String get heroDescription => 'Desarrollador de software con 4 años de experiencia en Flutter, servicios cloud e IA Generativa. Diseño y lanzo aplicaciones móviles rápidas y accesibles, integrando LLMs y automatizaciones end-to-end. Mi obsesión: medir, optimizar y escalar sin complicaciones.';
 
   @override
   String get resumeMySkills => 'Mis habilidades';
@@ -99,10 +99,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get exp1Period => '08/2024 – 04/2025';
 
   @override
-  String get exp1Bullet1 => 'Desarrollo de apps Flutter integradas con soluciones de IA de Google Cloud.';
+  String get exp1Bullet1 => 'Desarrollé aplicaciones Flutter integradas con soluciones de IA de Google Cloud.';
 
   @override
-  String get exp1Bullet2 => 'Enfoque en UX, rendimiento y trazabilidad end‑to‑end.';
+  String get exp1Bullet2 => 'Me enfoqué en UX, rendimiento y trazabilidad end-to-end.';
 
   @override
   String get exp2Company => 'Microsoft / LTIM';
@@ -114,10 +114,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get exp2Period => '10/2023 – 08/2024';
 
   @override
-  String get exp2Bullet1 => 'Diagnóstico y resolución de issues de plataforma (networking, certificados).';
+  String get exp2Bullet1 => 'Diagnostiqué y resolví issues complejos de plataforma (networking, certificados).';
 
   @override
-  String get exp2Bullet2 => 'Mejora de fiabilidad y tiempos de respuesta.';
+  String get exp2Bullet2 => 'Contribuí a mejorar la fiabilidad y los tiempos de respuesta.';
 
   @override
   String get exp3Company => 'La Plata';
@@ -129,28 +129,28 @@ class AppLocalizationsEs extends AppLocalizations {
   String get exp3Period => '03/2020 – 06/2023';
 
   @override
-  String get exp3Bullet1 => 'Desarrollo de aplicaciones multiplataforma con Flutter/Dart.';
+  String get exp3Bullet1 => 'Desarrollé aplicaciones multiplataforma con Flutter/Dart.';
 
   @override
-  String get exp3Bullet2 => 'Integración de servicios y buenas prácticas de arquitectura.';
+  String get exp3Bullet2 => 'Integré servicios y apliqué principios de arquitectura limpia.';
 
   @override
-  String get summaryPortfolio => 'Portafolio web (Flutter Web) con navegación por secciones y modal de proyectos. Cada proyecto incluye demo embebida (con marco de móvil/tablet), visor de código conectado a GitHub y descripción con tags. UI animada con Material 3, diseño responsive, soporte de foco/teclado y despliegue en GitHub Pages.';
+  String get summaryPortfolio => 'Portafolio web (Flutter Web) con navegación por secciones y modal de proyectos. Cada proyecto incluye una demo embebida (con marco de móvil/tablet), un visor de código conectado a GitHub y una descripción enriquecida con etiquetas. UI animada con Material 3, diseño responsive, soporte de foco/teclado y despliegue en GitHub Pages.';
 
   @override
-  String get summaryMovies => 'App móvil para explorar contenido de TMDb (cartelera, populares, búsqueda, ficha, reparto y recomendaciones). Usa un proxy en Firebase Cloud Functions para proteger claves y servir datos, demostrando arquitectura limpia, gestión de estado e integración de nivel producción.';
+  String get summaryMovies => 'Aplicación móvil para explorar contenido de TMDb (cartelera, populares, búsqueda, detalles, reparto y recomendaciones). Utiliza un proxy en Firebase Cloud Functions para proteger las claves y servir datos, demostrando arquitectura limpia, gestión de estado e integración de nivel producción.';
 
   @override
-  String get summaryMestura => 'Asistente de cocina con IA que genera recetas a partir de ingredientes o antojos. Ajusta raciones, tiempo y nivel; respeta dietas y restricciones. Incluye modo paso a paso con temporizadores, favoritos y lista de la compra offline, deep links y soporte multidioma. Monetización con anuncios intersticiales espaciados.';
+  String get summaryMestura => 'Asistente de cocina con IA que genera recetas a partir de ingredientes o antojos. Permite ajustar raciones, tiempo y nivel de habilidad; respeta dietas y restricciones. Incluye un modo paso a paso con temporizadores, favoritos offline, lista de la compra, deep links y soporte multidioma. Monetización con anuncios intersticiales espaciados.';
 
   @override
-  String get exp1Desc => 'Como SME (Subject Matter Expert) en IA Generativa en Cognizant, dentro del proyecto de Google Cloud, lideré el desarrollo de aplicaciones Flutter integradas con soluciones de IA de Google Cloud. Mi trabajo se centró en ofrecer experiencias innovadoras para clientes, combinando capacidades avanzadas de IA con una UX intuitiva. Además, aseguré un alto rendimiento y trazabilidad end-to-end en las aplicaciones.';
+  String get exp1Desc => 'Como SME (Subject Matter Expert) en IA Generativa en Cognizant, dentro del proyecto de Google Cloud, lideré el desarrollo de aplicaciones Flutter integradas con soluciones de IA de Google Cloud. Mi trabajo se centró en ofrecer experiencias innovadoras a los clientes, combinando capacidades avanzadas de IA con una UX intuitiva. Además, aseguré alto rendimiento y trazabilidad end-to-end en todas las aplicaciones.';
 
   @override
-  String get exp2Desc => 'Durante mi etapa en Microsoft Azure App Services (a través de LTIMindtree), trabajé en el diagnóstico y resolución de issues complejos de plataforma y software, principalmente relacionados con networking y certificados. Contribuí a mejorar la fiabilidad de los servicios, reducir los tiempos de respuesta y garantizar la operación continua de servicios cloud críticos para clientes empresariales.';
+  String get exp2Desc => 'Durante mi etapa en Microsoft Azure App Services (a través de LTIMindtree), trabajé en el diagnóstico y resolución de incidencias complejas de plataforma y software, principalmente relacionadas con networking y certificados. Contribuí a mejorar la fiabilidad de los servicios, reducir los tiempos de respuesta y garantizar la operación continua de servicios cloud críticos para clientes empresariales.';
 
   @override
-  String get exp3Desc => 'Participé en el desarrollo de aplicaciones multiplataforma con Flutter y Dart, aplicando principios de arquitectura limpia. Mis responsabilidades incluyeron la integración de servicios de terceros, el diseño de estructuras de código mantenibles y la garantía de escalabilidad. Estos proyectos reforzaron mi capacidad para entregar aplicaciones móviles y web robustas, centradas en el usuario.';
+  String get exp3Desc => 'Participé en el desarrollo de aplicaciones multiplataforma con Flutter y Dart, aplicando principios de arquitectura limpia. Mis responsabilidades incluyeron integrar servicios de terceros, diseñar estructuras de código mantenibles y asegurar la escalabilidad. Estos proyectos reforzaron mi capacidad de entregar aplicaciones móviles y web robustas, centradas en el usuario.';
 
   @override
   String get projectMoviesTitle => 'Flutter Movies Portfolio';
@@ -168,5 +168,5 @@ class AppLocalizationsEs extends AppLocalizations {
   String get projectPortfolioTitle => '¡Esta página también fue hecha con Flutter!';
 
   @override
-  String get projectPortfolioSubtitle => 'Este portfolio construido con Flutter Web';
+  String get projectPortfolioSubtitle => 'Portfolio construido con Flutter Web';
 }

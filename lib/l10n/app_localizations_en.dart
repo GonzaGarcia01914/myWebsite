@@ -33,7 +33,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get heroTitle => 'Gonzalo García';
 
   @override
-  String get heroDescription => 'Software developer with 4 years of experience in Flutter, cloud services, and Generative AI. I design and ship fast, accessible mobile apps, integrating LLMs and end-to-end automations. Obsessed with measuring, optimizing, and scaling without drama.';
+  String get heroDescription => 'Software developer with 4 years of experience in Flutter, cloud services, and Generative AI. I design and launch fast, accessible mobile apps, integrating LLMs and end-to-end automations. Obsessed with measuring, optimizing, and scaling without drama.';
 
   @override
   String get resumeMySkills => 'My skills';
@@ -99,10 +99,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exp1Period => '08/2024 – 04/2025';
 
   @override
-  String get exp1Bullet1 => 'Built Flutter apps integrated with Google Cloud AI solutions.';
+  String get exp1Bullet1 => 'Developed Flutter apps integrated with Google Cloud AI solutions.';
 
   @override
-  String get exp1Bullet2 => 'Focused on UX, performance and end‑to‑end traceability.';
+  String get exp1Bullet2 => 'Focused on UX, performance, and end-to-end traceability.';
 
   @override
   String get exp2Company => 'Microsoft / LTIM';
@@ -129,19 +129,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exp3Period => '03/2020 – 06/2023';
 
   @override
-  String get exp3Bullet1 => 'Developed cross‑platform apps with Flutter/Dart.';
+  String get exp3Bullet1 => 'Developed cross-platform applications with Flutter/Dart.';
 
   @override
-  String get exp3Bullet2 => 'Integrated services and applied sound architecture practices.';
+  String get exp3Bullet2 => 'Integrated services and applied clean architecture practices.';
 
   @override
-  String get summaryPortfolio => 'Web portfolio (Flutter Web) with section navigation and a projects modal. Each project includes an embedded demo (with mobile/tablet frame), a GitHub‑backed code viewer, and a tag‑rich description. Animated UI with Material 3, responsive layout, keyboard/focus support and deployment on GitHub Pages.';
+  String get summaryPortfolio => 'Web portfolio (Flutter Web) with section navigation and a projects modal. Each project includes an embedded demo (with mobile/tablet frame), a GitHub-backed code viewer, and a tag-rich description. Animated UI with Material 3, responsive layout, keyboard/focus support, and deployment on GitHub Pages.';
 
   @override
-  String get summaryMovies => 'Mobile app to explore TMDb content (now playing, popular, search, details, cast and recommendations). Uses a Firebase Cloud Functions proxy to secure API keys and serve data, showcasing clean architecture, state management and production‑grade integration.';
+  String get summaryMovies => 'Mobile app to explore TMDb content (now playing, popular, search, details, cast, and recommendations). Uses a Firebase Cloud Functions proxy to secure API keys and serve data, showcasing clean architecture, state management, and production-grade integration.';
 
   @override
-  String get summaryMestura => 'AI cooking assistant that generates recipes from ingredients or cravings. Adjust servings, time and skill level; respects diets and restrictions. Includes step‑by‑step cooking mode with timers, offline favorites + shopping list, deep links and multi‑language support. Monetized with spaced interstitial ads.';
+  String get summaryMestura => 'AI cooking assistant that generates recipes from ingredients or cravings. Adjust servings, time, and skill level; respects diets and restrictions. Includes step-by-step cooking mode with timers, offline favorites + shopping list, deep links, and multi-language support. Monetized with spaced interstitial ads.';
 
   @override
   String get exp1Desc => 'As Generative AI Subject Matter Expert (SME) at Cognizant within the Google Cloud project, I led the development of Flutter applications integrating Google Cloud’s AI solutions. My role focused on delivering innovative client experiences by combining advanced AI capabilities with intuitive UX. I also ensured high performance and full end-to-end traceability across the applications.';
@@ -162,11 +162,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get projectMesturaTitle => 'Mestura – Your cooking AI assistant';
 
   @override
-  String get projectMesturaSubtitle => 'AI‑powered assistant to generate and cook recipes.';
+  String get projectMesturaSubtitle => 'AI-powered assistant to generate and cook recipes.';
 
   @override
   String get projectPortfolioTitle => 'This page was also made with Flutter!';
 
   @override
-  String get projectPortfolioSubtitle => 'This portfolio built with Flutter Web';
+  String get projectPortfolioSubtitle => 'Portfolio built with Flutter Web';
 }

@@ -27,9 +27,15 @@ class _ProjectCardState extends State<ProjectCard> {
     final t = Theme.of(context).textTheme;
     final scheme = Theme.of(context).colorScheme;
 
+    final w = MediaQuery.sizeOf(context).width;
+    final isPhone = w < 480;
+
     final borderColor = _hover || _focused
         ? scheme.primary.withValues(alpha: 0.45)
         : scheme.outlineVariant.withValues(alpha: 0.35);
+
+    // altura mínima para alinear títulos/subtítulos entre cards
+    final double headerMinHeight = isPhone ? 72 : 64;
 
     return FocusableActionDetector(
       onShowFocusHighlight: (v) => setState(() => _focused = v),
@@ -73,10 +79,26 @@ class _ProjectCardState extends State<ProjectCard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.project.title, style: t.titleLarge),
-                    const SizedBox(height: 8),
-                    Text(widget.project.subtitle, style: t.bodyMedium),
+                    // HEADER FIJO: alinea todas las cards
+                    ConstrainedBox(
+                      constraints: BoxConstraints(minHeight: headerMinHeight),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(widget.project.title, style: t.titleLarge),
+                          const SizedBox(height: 8),
+                          Text(
+                            widget.project.subtitle,
+                            style: t.bodyMedium,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+
                     const Spacer(),
+
                     Wrap(
                       spacing: 10,
                       runSpacing: 10,

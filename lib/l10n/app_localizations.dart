@@ -146,7 +146,7 @@ abstract class AppLocalizations {
   /// No description provided for @heroDescription.
   ///
   /// In en, this message translates to:
-  /// **'Software developer with 4 years of experience in Flutter, cloud services, and Generative AI. I design and ship fast, accessible mobile apps, integrating LLMs and end-to-end automations. Obsessed with measuring, optimizing, and scaling without drama.'**
+  /// **'Software developer with 4 years of experience in Flutter, cloud services, and Generative AI. I design and launch fast, accessible mobile apps, integrating LLMs and end-to-end automations. Obsessed with measuring, optimizing, and scaling without drama.'**
   String get heroDescription;
 
   /// No description provided for @resumeMySkills.
@@ -278,13 +278,13 @@ abstract class AppLocalizations {
   /// No description provided for @exp1Bullet1.
   ///
   /// In en, this message translates to:
-  /// **'Built Flutter apps integrated with Google Cloud AI solutions.'**
+  /// **'Developed Flutter apps integrated with Google Cloud AI solutions.'**
   String get exp1Bullet1;
 
   /// No description provided for @exp1Bullet2.
   ///
   /// In en, this message translates to:
-  /// **'Focused on UX, performance and end‑to‑end traceability.'**
+  /// **'Focused on UX, performance, and end-to-end traceability.'**
   String get exp1Bullet2;
 
   /// No description provided for @exp2Company.
@@ -338,31 +338,31 @@ abstract class AppLocalizations {
   /// No description provided for @exp3Bullet1.
   ///
   /// In en, this message translates to:
-  /// **'Developed cross‑platform apps with Flutter/Dart.'**
+  /// **'Developed cross-platform applications with Flutter/Dart.'**
   String get exp3Bullet1;
 
   /// No description provided for @exp3Bullet2.
   ///
   /// In en, this message translates to:
-  /// **'Integrated services and applied sound architecture practices.'**
+  /// **'Integrated services and applied clean architecture practices.'**
   String get exp3Bullet2;
 
   /// No description provided for @summaryPortfolio.
   ///
   /// In en, this message translates to:
-  /// **'Web portfolio (Flutter Web) with section navigation and a projects modal. Each project includes an embedded demo (with mobile/tablet frame), a GitHub‑backed code viewer, and a tag‑rich description. Animated UI with Material 3, responsive layout, keyboard/focus support and deployment on GitHub Pages.'**
+  /// **'Web portfolio (Flutter Web) with section navigation and a projects modal. Each project includes an embedded demo (with mobile/tablet frame), a GitHub-backed code viewer, and a tag-rich description. Animated UI with Material 3, responsive layout, keyboard/focus support, and deployment on GitHub Pages.'**
   String get summaryPortfolio;
 
   /// No description provided for @summaryMovies.
   ///
   /// In en, this message translates to:
-  /// **'Mobile app to explore TMDb content (now playing, popular, search, details, cast and recommendations). Uses a Firebase Cloud Functions proxy to secure API keys and serve data, showcasing clean architecture, state management and production‑grade integration.'**
+  /// **'Mobile app to explore TMDb content (now playing, popular, search, details, cast, and recommendations). Uses a Firebase Cloud Functions proxy to secure API keys and serve data, showcasing clean architecture, state management, and production-grade integration.'**
   String get summaryMovies;
 
   /// No description provided for @summaryMestura.
   ///
   /// In en, this message translates to:
-  /// **'AI cooking assistant that generates recipes from ingredients or cravings. Adjust servings, time and skill level; respects diets and restrictions. Includes step‑by‑step cooking mode with timers, offline favorites + shopping list, deep links and multi‑language support. Monetized with spaced interstitial ads.'**
+  /// **'AI cooking assistant that generates recipes from ingredients or cravings. Adjust servings, time, and skill level; respects diets and restrictions. Includes step-by-step cooking mode with timers, offline favorites + shopping list, deep links, and multi-language support. Monetized with spaced interstitial ads.'**
   String get summaryMestura;
 
   /// No description provided for @exp1Desc.
@@ -404,7 +404,7 @@ abstract class AppLocalizations {
   /// No description provided for @projectMesturaSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'AI‑powered assistant to generate and cook recipes.'**
+  /// **'AI-powered assistant to generate and cook recipes.'**
   String get projectMesturaSubtitle;
 
   /// No description provided for @projectPortfolioTitle.
@@ -416,7 +416,7 @@ abstract class AppLocalizations {
   /// No description provided for @projectPortfolioSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'This portfolio built with Flutter Web'**
+  /// **'Portfolio built with Flutter Web'**
   String get projectPortfolioSubtitle;
 }
 
