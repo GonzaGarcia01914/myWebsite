@@ -44,6 +44,8 @@ dependencies:
   very_good_analysis: ^9.0.0
   flutter_riverpod: ^2.6.1
   web: ^1.1.1
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +63,7 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  generate: true
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

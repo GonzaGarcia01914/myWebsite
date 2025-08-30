@@ -1,6 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../../core/utils/scroll_nav.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../l10n/app_localizations.dart';
+import '../../app/di.dart';
 
 class CenteredNavBar extends StatelessWidget implements PreferredSizeWidget {
   const CenteredNavBar({super.key, required this.nav});
@@ -12,10 +15,11 @@ class CenteredNavBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final items = const [
-      _NavItem('Proyectos', 'projects'),
-      _NavItem('Resume', 'resume'),
-      _NavItem('Contacto', 'contact'),
+    final t = AppLocalizations.of(context)!;
+    final items = [
+      _NavItem(t.navProjects, 'projects'),
+      _NavItem(t.navResume, 'resume'),
+      _NavItem(t.navContact, 'contact'),
     ];
 
     return AppBar(
@@ -89,6 +93,26 @@ class CenteredNavBar extends StatelessWidget implements PreferredSizeWidget {
           },
         ),
       ),
+      actions: [
+        Consumer(
+          builder: (context, ref, _) {
+            final selected = ref.watch(localeProvider);
+            final current = selected?.languageCode ??
+                Localizations.localeOf(context).languageCode;
+            final next = current.toLowerCase() == 'es'
+                ? const Locale('en')
+                : const Locale('es');
+            return Padding(
+              padding: const EdgeInsets.only(right: 12),
+              child: TextButton(
+                onPressed: () =>
+                    ref.read(localeProvider.notifier).state = next,
+                child: Text(current.toUpperCase()),
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }

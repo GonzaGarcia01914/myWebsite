@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../core/models/project.dart';
 import '../../../core/widgets/web_demo_view.dart'; // IFrame helper
 import '../../../core/widgets/phone_frame.dart';
+import '../../../l10n/app_localizations.dart';
 
 class ProjectModal extends StatefulWidget {
   const ProjectModal({super.key, required this.project});
@@ -165,9 +166,13 @@ class _ProjectModalState extends State<ProjectModal>
                 ),
               );
 
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [banner, const SizedBox(height: 10), content],
+              return LayoutBuilder(
+                builder: (context, c) => SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [content, const SizedBox(height: 10), banner],
+                  ),
+                ),
               );
             },
           ),
@@ -176,7 +181,8 @@ class _ProjectModalState extends State<ProjectModal>
     }
 
     // CODE
-    tabs.add(const Tab(text: 'Code'));
+    final loc = AppLocalizations.of(context)!;
+    tabs.add(Tab(text: loc.tabCode));
     views.add(
       Padding(
         padding: const EdgeInsets.all(12.0),
@@ -255,7 +261,10 @@ class _ProjectModalState extends State<ProjectModal>
                   .toList(),
             ),
             const SizedBox(height: 14),
-            if ((widget.project.summary ?? '').isNotEmpty)
+            if (widget.project.id == 'portfolio')
+              Text(AppLocalizations.of(context)!.summaryPortfolio,
+                  style: t.bodyLarge)
+            else if ((widget.project.summary ?? '').isNotEmpty)
               Text(widget.project.summary!, style: t.bodyLarge),
           ],
         ),

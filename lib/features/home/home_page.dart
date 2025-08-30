@@ -5,6 +5,7 @@ import '../../core/utils/scroll_nav.dart';
 import '../../core/widgets/app_shell.dart';
 import '../../features/projects/data/projects.dart';
 import '../../features/projects/widgets/project_card.dart';
+import '../../l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, this.initialAnchor});
@@ -92,7 +93,7 @@ class _HeroNav extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              'Gonzalo García — Portfolio',
+              AppLocalizations.of(context)!.heroTitle,
               textAlign: TextAlign.center,
               style: t.displaySmall?.copyWith(
                 fontWeight: FontWeight.w800,
@@ -100,13 +101,36 @@ class _HeroNav extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            Text(
-              'Desarrollador Flutter/Dart con 4 años de experiencia. '
-              'Creo experiencias multiplataforma enfocadas en rendimiento, accesibilidad y UX, '
-              'integrando Cloud (Azure/GCP) y GenAI cuando aporta valor.',
-              textAlign: TextAlign.center,
-              style: t.titleMedium,
-            ),
+            Builder(builder: (context) {
+              final desc = AppLocalizations.of(context)!.heroDescription;
+              final lang = Localizations.localeOf(context).languageCode;
+              final highlights = lang == 'es'
+                  ? ['Flutter/Dart', '4 años', 'GenAI']
+                  : ['Flutter/Dart', '4+ years', 'GenAI'];
+
+              List<TextSpan> spans = [];
+              String remaining = desc;
+              for (final h in highlights) {
+                final idx = remaining.toLowerCase().indexOf(h.toLowerCase());
+                if (idx == -1) continue;
+                final before = remaining.substring(0, idx);
+                final match = remaining.substring(idx, idx + h.length);
+                spans.add(TextSpan(text: before));
+                spans.add(TextSpan(
+                  text: match,
+                  style: t.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w800,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ));
+                remaining = remaining.substring(idx + h.length);
+              }
+              spans.add(TextSpan(text: remaining));
+              return Text.rich(
+                TextSpan(children: spans, style: t.titleMedium),
+                textAlign: TextAlign.center,
+              );
+            }),
           ],
         ),
       ),
@@ -120,8 +144,9 @@ class _ProjectsSection extends StatelessWidget {
   const _ProjectsSection({super.key});
   @override
   Widget build(BuildContext context) {
+    final tLoc = AppLocalizations.of(context)!;
     return _Section(
-      id: 'Proyectos',
+      id: tLoc.sectionProjects,
       child: LayoutBuilder(
         builder: (context, c) {
           final w = c.maxWidth;
@@ -313,14 +338,15 @@ class _ResumeSectionState extends State<_ResumeSection> {
       );
     }
 
+    final tLoc = AppLocalizations.of(context)!;
     return _Section(
-      id: 'Resume',
+      id: tLoc.sectionResume,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           // My skills
           Text(
-            'My skills',
+            AppLocalizations.of(context)!.resumeMySkills,
             style: t.headlineMedium?.copyWith(fontWeight: FontWeight.w800),
             textAlign: TextAlign.center,
           ),
@@ -335,7 +361,7 @@ class _ResumeSectionState extends State<_ResumeSection> {
 
           // Experience
           Text(
-            'Experience',
+            AppLocalizations.of(context)!.resumeExperience,
             style: t.headlineMedium?.copyWith(fontWeight: FontWeight.w800),
             textAlign: TextAlign.center,
           ),
@@ -355,7 +381,7 @@ class _ResumeSectionState extends State<_ResumeSection> {
           OutlinedButton.icon(
             onPressed: () => _openUrl('assets/GonzaloGarciaCV_06-2.pdf'),
             icon: const Icon(Icons.file_download),
-            label: const Text('Download CV (PDF)'),
+            label: Text(AppLocalizations.of(context)!.resumeDownloadCv),
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
             ),
@@ -444,12 +470,13 @@ class _ContactSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final tLoc = AppLocalizations.of(context)!;
     return _Section(
-      id: 'Contacto',
+      id: tLoc.sectionContact,
       child: Wrap(
         spacing: 16,
         runSpacing: 16,
-        children: const [
+        children: [
           _ContactCard(
             title: 'Email',
             subtitle: 'gonzalogarcia01914@gmail.com',
