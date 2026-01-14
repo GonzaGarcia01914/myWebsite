@@ -382,7 +382,7 @@ class _ResumeSectionState extends State<_ResumeSection> {
 
           // Descargar CV
           OutlinedButton.icon(
-            onPressed: () => _openUrl('assets/GonzaloGarciaCV_06-2.pdf'),
+            onPressed: () => _openUrl('/assets/CV_11-25.pdf'),
             icon: const Icon(Icons.file_download),
             label: Text(AppLocalizations.of(context)!.resumeDownloadCv),
             style: OutlinedButton.styleFrom(

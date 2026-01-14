@@ -21,6 +21,9 @@ class GonzaloApp extends ConsumerWidget {
       theme: buildLightTheme(),
       darkTheme: buildDarkTheme(),
       routerConfig: router,
+      builder: (context, child) => SelectionArea(
+        child: child ?? const SizedBox.shrink(),
+      ),
       locale: selectedLocale,
       localizationsDelegates: const [
         AppLocalizations.delegate,
