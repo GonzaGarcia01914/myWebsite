@@ -146,13 +146,13 @@ abstract class AppLocalizations {
   /// No description provided for @heroDescription.
   ///
   /// In en, this message translates to:
-  /// **'Software developer with 4 years of experience in Flutter, cloud services, and Generative AI. I design and launch fast, accessible mobile apps, integrating LLMs and end-to-end automations. Obsessed with measuring, optimizing, and scaling without drama.'**
+  /// **'Senior Flutter Engineer with 5+ years of experience building production-grade cross-platform apps, including embedded-integrated UIs and device-connected features. Strong expertise in Flutter/Dart, custom widgets, animations, and high-performance UI architecture. Focused on reliability, performance profiling, and seamless UI–hardware communication in constrained environments.'**
   String get heroDescription;
 
   /// No description provided for @resumeMySkills.
   ///
   /// In en, this message translates to:
-  /// **'My skills'**
+  /// **'Core skills'**
   String get resumeMySkills;
 
   /// No description provided for @resumeExperience.
@@ -185,6 +185,12 @@ abstract class AppLocalizations {
   /// **'Description'**
   String get tabDescription;
 
+  /// No description provided for @tabVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Video'**
+  String get tabVideo;
+
   /// No description provided for @btnGooglePlay.
   ///
   /// In en, this message translates to:
@@ -214,6 +220,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Open on GitHub'**
   String get btnOpenOnGithub;
+
+  /// No description provided for @btnWatchYoutube.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch on YouTube'**
+  String get btnWatchYoutube;
 
   /// No description provided for @demoBanner.
   ///
@@ -260,61 +272,61 @@ abstract class AppLocalizations {
   /// No description provided for @exp1Company.
   ///
   /// In en, this message translates to:
-  /// **'Cognizant (Google Cloud)'**
+  /// **'Cognizant'**
   String get exp1Company;
 
   /// No description provided for @exp1Role.
   ///
   /// In en, this message translates to:
-  /// **'Generative AI — SME · Flutter'**
+  /// **'Senior Flutter Engineer & UI/Embedded Integration'**
   String get exp1Role;
 
   /// No description provided for @exp1Period.
   ///
   /// In en, this message translates to:
-  /// **'08/2024 – 04/2025'**
+  /// **'2024 – 2025'**
   String get exp1Period;
 
   /// No description provided for @exp1Bullet1.
   ///
   /// In en, this message translates to:
-  /// **'Developed Flutter apps integrated with Google Cloud AI solutions.'**
+  /// **'Developed advanced Flutter UI components interacting with backend AI and microservices.'**
   String get exp1Bullet1;
 
   /// No description provided for @exp1Bullet2.
   ///
   /// In en, this message translates to:
-  /// **'Focused on UX, performance, and end-to-end traceability.'**
+  /// **'Collaborated with embedded and systems engineers to ensure seamless UI integration with lower-level services.'**
   String get exp1Bullet2;
 
   /// No description provided for @exp2Company.
   ///
   /// In en, this message translates to:
-  /// **'Microsoft / LTIM'**
+  /// **'Microsoft / LTI Mindtree'**
   String get exp2Company;
 
   /// No description provided for @exp2Role.
   ///
   /// In en, this message translates to:
-  /// **'Azure App Services — Cloud Engineer'**
+  /// **'Azure App Services Engineer'**
   String get exp2Role;
 
   /// No description provided for @exp2Period.
   ///
   /// In en, this message translates to:
-  /// **'10/2023 – 08/2024'**
+  /// **'2023 – 2024'**
   String get exp2Period;
 
   /// No description provided for @exp2Bullet1.
   ///
   /// In en, this message translates to:
-  /// **'Diagnosed and resolved platform issues (networking, certificates).'**
+  /// **'Troubleshot complex systems, network communication endpoints, and certificate-based authentication.'**
   String get exp2Bullet1;
 
   /// No description provided for @exp2Bullet2.
   ///
   /// In en, this message translates to:
-  /// **'Improved reliability and response times.'**
+  /// **'Maintained high reliability and operational performance of deployed cloud services.'**
   String get exp2Bullet2;
 
   /// No description provided for @exp3Company.
@@ -326,26 +338,44 @@ abstract class AppLocalizations {
   /// No description provided for @exp3Role.
   ///
   /// In en, this message translates to:
-  /// **'Flutter/Dart Developer'**
+  /// **'Flutter Developer'**
   String get exp3Role;
 
   /// No description provided for @exp3Period.
   ///
   /// In en, this message translates to:
-  /// **'03/2020 – 06/2023'**
+  /// **'2020 – 2023'**
   String get exp3Period;
 
   /// No description provided for @exp3Bullet1.
   ///
   /// In en, this message translates to:
-  /// **'Developed cross-platform applications with Flutter/Dart.'**
+  /// **'Built and deployed multiple production Flutter applications.'**
   String get exp3Bullet1;
 
   /// No description provided for @exp3Bullet2.
   ///
   /// In en, this message translates to:
-  /// **'Integrated services and applied clean architecture practices.'**
+  /// **'Designed reusable UI components, implemented state management, and delivered responsive layouts.'**
   String get exp3Bullet2;
+
+  /// No description provided for @exp1Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'As a Senior Flutter Engineer at Cognizant, I developed advanced Flutter UI components integrated with backend AI and microservices. I worked closely with embedded and systems engineers to ensure reliable UI–hardware communication, applying performance optimization strategies for constrained environments. I also contributed to architecture decisions, code reviews, and component reusability.'**
+  String get exp1Desc;
+
+  /// No description provided for @exp2Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'At Microsoft Azure App Services (via LTI Mindtree), I worked in Linux-based cloud environments and service communication layers. I diagnosed and resolved complex platform and software issues, focusing on networking and certificate-based service authentication. I contributed to improving service reliability and operational performance for enterprise workloads.'**
+  String get exp2Desc;
+
+  /// No description provided for @exp3Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'At La Plata, I built and deployed cross-platform applications using Flutter and Dart. I designed reusable UI components, implemented state management, and delivered responsive layouts across multiple device sizes. I also integrated Flutter apps with native OS services and external APIs.'**
+  String get exp3Desc;
 
   /// No description provided for @summaryPortfolio.
   ///
@@ -365,23 +395,12 @@ abstract class AppLocalizations {
   /// **'AI cooking assistant that generates recipes from ingredients or cravings. Adjust servings, time, and skill level; respects diets and restrictions. Includes step-by-step cooking mode with timers, offline favorites + shopping list, deep links, and multi-language support. Monetized with spaced interstitial ads.'**
   String get summaryMestura;
 
-  /// No description provided for @exp1Desc.
-  ///
-  /// In en, this message translates to:
-  /// **'As Generative AI Subject Matter Expert (SME) at Cognizant within the Google Cloud project, I led the development of Flutter applications integrating Google Cloud’s AI solutions. My role focused on delivering innovative client experiences by combining advanced AI capabilities with intuitive UX. I also ensured high performance and full end-to-end traceability across the applications.'**
-  String get exp1Desc;
 
-  /// No description provided for @exp2Desc.
+  /// No description provided for @summaryPumpIt.
   ///
   /// In en, this message translates to:
-  /// **'During my time with Microsoft Azure App Services (through LTIMindtree), I worked on diagnosing and resolving complex platform and software issues, with an emphasis on networking and certificates. I contributed to improving service reliability, reducing response times, and ensuring seamless operation of critical cloud services for enterprise clients.'**
-  String get exp2Desc;
-
-  /// No description provided for @exp3Desc.
-  ///
-  /// In en, this message translates to:
-  /// **'I participated in the development of cross-platform applications using Flutter and Dart, with a strong focus on clean architecture principles. My responsibilities included integrating third-party services, designing maintainable code structures, and ensuring scalability. These projects strengthened my ability to deliver robust, user-centered mobile and web applications.'**
-  String get exp3Desc;
+  /// **'Pump It Baby is a Flutter app (desktop/web) that monitors featured memecoins on pump.fun in real time and orchestrates an auto-invest bot. The UI is feature-driven and state is managed with Riverpod: FeaturedCoinNotifier handles discovery/filters/insights, AutoInvestNotifier manages configuration and positions, and AutoInvestExecutor watches state changes to decide and execute swaps. The services layer encapsulates data clients (pump.fun, Solana RPC/WS, Helius Enhanced API), execution providers (Jupiter/PumpPortal), wallet providers (local keypair on desktop, Phantom on web), and analytics/AI (optional OpenAI). The architecture cleanly separates data acquisition, decision logic, and execution, with fast confirmations via WebSocket and an HTTP RPC fallback for resilience.'**
+  String get summaryPumpIt;
 
   /// No description provided for @projectMoviesTitle.
   ///
@@ -406,6 +425,19 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'AI-powered assistant to generate and cook recipes.'**
   String get projectMesturaSubtitle;
+
+
+  /// No description provided for @projectPumpItTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PumpIt'**
+  String get projectPumpItTitle;
+
+  /// No description provided for @projectPumpItSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Workout and progress tracker.'**
+  String get projectPumpItSubtitle;
 
   /// No description provided for @projectPortfolioTitle.
   ///

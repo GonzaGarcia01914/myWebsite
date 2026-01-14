@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/models/project.dart';
-import '../../../core/widgets/web_demo_view.dart'; // IFrame helper
+import '../../../core/widgets/web_demo_view.dart';
+import '../../../core/widgets/web_video_view.dart';
 import '../../../core/widgets/phone_frame.dart';
 import '../../../l10n/app_localizations.dart';
 
@@ -23,10 +24,13 @@ class _ProjectModalState extends State<ProjectModal>
   void initState() {
     super.initState();
 
-    // Demo (si procede) + Código + Descripción
-    final hasDemo =
-        widget.project.showDemo && (widget.project.demoUrl ?? '').isNotEmpty;
-    final length = (hasDemo ? 1 : 0) + 2;
+    // Demo (si procede) + Codigo (si procede) + Descripcion
+    final hasVideo = (widget.project.videoUrl ?? '').isNotEmpty;
+    final hasYoutube = _youtubeEmbedUrl(widget.project.youtubeUrl) != null;
+    final hasDemo = widget.project.showDemo &&
+        ((widget.project.demoUrl ?? '').isNotEmpty || hasVideo);
+    final hasCode = widget.project.showCode;
+    final length = (hasDemo ? 1 : 0) + (hasYoutube ? 1 : 0) + (hasCode ? 1 : 0) + 1;
     _tabs = TabController(length: length, vsync: this);
   }
 
@@ -43,6 +47,27 @@ class _ProjectModalState extends State<ProjectModal>
       mode: LaunchMode.externalApplication,
       webOnlyWindowName: '_blank',
     );
+  }
+
+
+  String? _youtubeEmbedUrl(String? url) {
+    if (url == null || url.isEmpty) return null;
+    try {
+      final uri = Uri.parse(url);
+      if (uri.host.contains('youtu.be')) {
+        final id = uri.pathSegments.isNotEmpty ? uri.pathSegments.last : '';
+        if (id.isEmpty) return null;
+        return 'https://www.youtube.com/embed/$id?rel=0';
+      }
+      if (uri.host.contains('youtube.com')) {
+        final id = uri.queryParameters['v'];
+        if (id == null || id.isEmpty) return null;
+        return 'https://www.youtube.com/embed/$id?rel=0';
+      }
+    } catch (_) {
+      return null;
+    }
+    return null;
   }
 
   /// Si tenemos githubUrl (https://github.com/<owner>/<repo>),
@@ -78,8 +103,11 @@ class _ProjectModalState extends State<ProjectModal>
 
     final loc = AppLocalizations.of(context)!;
 
-    final hasDemo =
-        widget.project.showDemo && (widget.project.demoUrl ?? '').isNotEmpty;
+    final hasVideo = (widget.project.videoUrl ?? '').isNotEmpty;
+    final hasYoutube = _youtubeEmbedUrl(widget.project.youtubeUrl) != null;
+    final hasDemo = widget.project.showDemo &&
+        ((widget.project.demoUrl ?? '').isNotEmpty || hasVideo);
+    final hasCode = widget.project.showCode;
 
     // ---------- Tabs + vistas ----------
     final tabs = <Tab>[];
@@ -92,9 +120,8 @@ class _ProjectModalState extends State<ProjectModal>
           padding: const EdgeInsets.all(12.0),
           child: Builder(
             builder: (context) {
-              // En móvil SOLO botón centrado (sin iframe)
+              // En movil SOLO boton centrado (sin iframe/video)
               if (isPhone) {
-                // Fallback simple para el texto "Abrir demo" sin romper i18n
                 final lang = Localizations.localeOf(context).languageCode;
                 final openDemoLabel = (lang == 'es')
                     ? 'Abrir demo'
@@ -102,7 +129,11 @@ class _ProjectModalState extends State<ProjectModal>
 
                 return Center(
                   child: FilledButton.icon(
-                    onPressed: () => _openUrl(widget.project.demoUrl!),
+                    onPressed: () => _openUrl(
+                      hasVideo
+                          ? widget.project.videoUrl!
+                          : widget.project.demoUrl!,
+                    ),
                     icon: const Icon(Icons.smartphone),
                     label: Text(openDemoLabel),
                     style: FilledButton.styleFrom(
@@ -115,9 +146,29 @@ class _ProjectModalState extends State<ProjectModal>
                 );
               }
 
-              // Tablet/desktop: embeber demo + banner
+              // Tablet/desktop: embeber demo o video
               final emulateMobile = widget.project.emulateMobileDemo;
               final emulateTablet = widget.project.emulateTabletDemo;
+
+              if (hasVideo) {
+                return Card(
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: WebVideoView(
+                        url: widget.project.videoUrl!,
+                        posterUrl: widget.project.videoPosterUrl,
+                      ),
+                    ),
+                  ),
+                );
+              }
+
               final demo = WebDemoView(url: widget.project.demoUrl!);
 
               Widget content;
@@ -204,56 +255,82 @@ class _ProjectModalState extends State<ProjectModal>
       );
     }
 
-    // CODE
-    tabs.add(Tab(text: loc.tabCode));
-    views.add(
-      Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Builder(
-          builder: (_) {
-            final url =
-                widget.project.codeEmbedUrl ??
-                _inferCodeViewerFromGithub(widget.project.githubUrl);
 
-            if (url == null) {
-              return Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(loc.codeViewerMissing),
-                    const SizedBox(height: 12),
-                    if (widget.project.githubUrl != null)
-                      FilledButton.icon(
-                        onPressed: () => _openUrl(widget.project.githubUrl!),
-                        icon: const Icon(Icons.code),
-                        label: Text(loc.btnOpenOnGithub),
-                      ),
-                  ],
+    if (hasYoutube) {
+      tabs.add(Tab(text: loc.tabVideo));
+      final url = _youtubeEmbedUrl(widget.project.youtubeUrl)!;
+      views.add(
+        Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Card(
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: AspectRatio(
+              aspectRatio: 16 / 9,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(14),
+                child: WebDemoView(url: url),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
+    if (hasCode) {
+      tabs.add(Tab(text: loc.tabCode));
+      views.add(
+        Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Builder(
+            builder: (_) {
+              final url =
+                  widget.project.codeEmbedUrl ??
+                  _inferCodeViewerFromGithub(widget.project.githubUrl);
+
+              if (url == null) {
+                return Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(loc.codeViewerMissing),
+                      const SizedBox(height: 12),
+                      if (widget.project.githubUrl != null &&
+                          widget.project.showGithub)
+                        FilledButton.icon(
+                          onPressed: () => _openUrl(widget.project.githubUrl!),
+                          icon: const Icon(Icons.code),
+                          label: Text(loc.btnOpenOnGithub),
+                        ),
+                    ],
+                  ),
+                );
+              }
+
+              return Card(
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: SizedBox(
+                  height: (MediaQuery.of(context).size.height * 0.55)
+                      .clamp(420, 680)
+                      .toDouble(),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(14),
+                    child: WebDemoView(url: url),
+                  ),
                 ),
               );
-            }
-
-            return Card(
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: SizedBox(
-                height: (MediaQuery.of(context).size.height * 0.55)
-                    .clamp(420, 680)
-                    .toDouble(),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(14),
-                  child: WebDemoView(url: url),
-                ),
-              ),
-            );
-          },
+            },
+          ),
         ),
-      ),
-    );
+      );
+    }
 
-    // DESCRIPCIÓN
+    // DESCRIPCION
     tabs.add(Tab(text: loc.tabDescription));
     views.add(
       SingleChildScrollView(
@@ -283,6 +360,15 @@ class _ProjectModalState extends State<ProjectModal>
                   )
                   .toList(),
             ),
+            if ((widget.project.youtubeUrl ?? '').isNotEmpty && !hasYoutube)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 14),
+                child: FilledButton.icon(
+                  onPressed: () => _openUrl(widget.project.youtubeUrl!),
+                  icon: const Icon(Icons.play_circle_filled),
+                  label: Text(loc.btnWatchYoutube),
+                ),
+              ),
             const SizedBox(height: 14),
             if (widget.project.id == 'portfolio')
               Text(loc.summaryPortfolio, style: t.bodyLarge)
@@ -317,7 +403,6 @@ class _ProjectModalState extends State<ProjectModal>
                         ? CrossAxisAlignment.center
                         : CrossAxisAlignment.start,
                     children: [
-                      // TÍTULO ARRIBA
                       Text(
                         widget.project.title,
                         style: t.titleLarge?.copyWith(
@@ -326,7 +411,6 @@ class _ProjectModalState extends State<ProjectModal>
                         textAlign: isPhone ? TextAlign.center : TextAlign.start,
                       ),
                       const SizedBox(height: 12),
-                      // Fila con botones (GitHub/Play) + X
                       Row(
                         mainAxisAlignment: isPhone
                             ? MainAxisAlignment.center
@@ -345,7 +429,8 @@ class _ProjectModalState extends State<ProjectModal>
                                     label: Text(loc.btnGooglePlay),
                                   ),
                                 ),
-                              if (widget.project.githubUrl != null)
+                              if (widget.project.githubUrl != null &&
+                                  widget.project.showGithub)
                                 OutlinedButton.icon(
                                   onPressed: () =>
                                       _openUrl(widget.project.githubUrl!),
@@ -362,7 +447,7 @@ class _ProjectModalState extends State<ProjectModal>
                             ),
                         ],
                       ),
-                      if (isPhone) // En móvil, la X en su propia fila a la derecha
+                      if (isPhone)
                         Align(
                           alignment: Alignment.centerRight,
                           child: IconButton(

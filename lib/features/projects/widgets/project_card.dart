@@ -29,6 +29,10 @@ class _ProjectCardState extends State<ProjectCard> {
 
     final w = MediaQuery.sizeOf(context).width;
     final isPhone = w < 480;
+    final hasLogo = (widget.project.logoAsset ?? '').isNotEmpty;
+    final logoAreaFactor = isPhone ? 0.5 : 0.42;
+    final logoOpacity = isPhone ? 0.82 : 0.9;
+    final contentWidthFactor = isPhone ? 0.72 : 0.68;
 
     final borderColor = _hover || _focused
         ? scheme.primary.withValues(alpha: 0.45)
@@ -71,51 +75,117 @@ class _ProjectCardState extends State<ProjectCard> {
           child: Material(
             color: scheme.surface,
             borderRadius: BorderRadius.circular(16),
+            clipBehavior: Clip.antiAlias,
             child: InkWell(
               borderRadius: BorderRadius.circular(16),
               onTap: _open,
               child: Padding(
                 padding: const EdgeInsets.all(18),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // HEADER FIJO: alinea todas las cards
-                    ConstrainedBox(
-                      constraints: BoxConstraints(minHeight: headerMinHeight),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(widget.project.title, style: t.titleLarge),
-                          const SizedBox(height: 8),
-                          Text(
-                            widget.project.subtitle,
-                            style: t.bodyMedium,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
-                      ),
-                    ),
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    final contentWidth = hasLogo
+                        ? constraints.maxWidth * contentWidthFactor
+                        : constraints.maxWidth;
 
-                    const Spacer(),
-
-                    Wrap(
-                      spacing: 10,
-                      runSpacing: 10,
-                      children: widget.project.tags
-                          .map(
-                            (tag) => Chip(
-                              label: Text(tag),
-                              side: BorderSide(
-                                color: scheme.outlineVariant.withValues(
-                                  alpha: .55,
+                    return Stack(
+                      children: [
+                        if (hasLogo)
+                          Positioned.fill(
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: FractionallySizedBox(
+                                widthFactor: logoAreaFactor,
+                                heightFactor: 1,
+                                child: Opacity(
+                                  opacity: logoOpacity,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 10,
+                                      horizontal: 6,
+                                    ),
+                                    child: Image.asset(
+                                      widget.project.logoAsset!,
+                                      fit: BoxFit.contain,
+                                      alignment: Alignment.centerRight,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          )
-                          .toList(),
-                    ),
-                  ],
+                          ),
+                        if (hasLogo)
+                          Positioned.fill(
+                            child: IgnorePointer(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.centerRight,
+                                    colors: [
+                                      scheme.surface,
+                                      scheme.surface.withValues(alpha: 0.82),
+                                      scheme.surface.withValues(alpha: 0.35),
+                                      Colors.transparent,
+                                    ],
+                                    stops: const [0.0, 0.55, 0.82, 1.0],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ConstrainedBox(
+                          constraints: BoxConstraints(maxWidth: contentWidth),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // HEADER FIJO: alinea todas las cards
+                              ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  minHeight: headerMinHeight,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      widget.project.title,
+                                      style: t.titleLarge,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      widget.project.subtitle,
+                                      style: t.bodyMedium,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+                              const Spacer(),
+
+                              Wrap(
+                                spacing: 10,
+                                runSpacing: 10,
+                                children: widget.project.tags
+                                    .map(
+                                      (tag) => Chip(
+                                        label: Text(tag),
+                                        side: BorderSide(
+                                          color:
+                                              scheme.outlineVariant.withValues(
+                                            alpha: .55,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
             ),

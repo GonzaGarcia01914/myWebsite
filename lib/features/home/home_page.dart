@@ -107,8 +107,8 @@ class _HeroNav extends StatelessWidget {
                 final desc = AppLocalizations.of(context)!.heroDescription;
                 final lang = Localizations.localeOf(context).languageCode;
                 final highlights = lang == 'es'
-                    ? ['4 años', 'Flutter', 'GenAI']
-                    : ['4 years', 'Flutter', 'Generative AI'];
+                    ? ['Flutter', '5 años', 'GenAI']
+                    : ['Flutter', '5+ years', 'Generative AI'];
 
                 List<TextSpan> spans = [];
                 String remaining = desc;

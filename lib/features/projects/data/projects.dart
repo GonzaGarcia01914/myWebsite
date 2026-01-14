@@ -95,6 +95,25 @@ UX cuidada: interfaz ligera, fondo animado y componentes reutilizables con un si
     summary:
         'Portafolio web (Flutter Web) con navegación por secciones y modal de proyectos. Cada proyecto incluye demo embebida (con marco de móvil/tablet), visor de código conectado a GitHub y descripción con tags. UI animada con Material 3, diseño responsive y soporte de foco/teclado. Implementado con Riverpod + GoRouter y publicado en GitHub Pages, priorizando rendimiento, accesibilidad y una experiencia limpia y moderna.',
   ),
+
+  Project(
+    title: 'PumpIt',
+    subtitle: 'Workout and progress tracker.',
+    demoUrl: null,
+    videoUrl: null,
+    videoPosterUrl: null,
+    youtubeUrl: 'https://youtu.be/_y4SGuqEjeQ',
+    logoAsset: 'assets/pump_it.png',
+    githubUrl: 'https://github.com/GonzaGarcia01914/pumpIt',
+    codeEmbedUrl: null,
+    playUrl: null,
+    showDemo: false,
+    showCode: false,
+    showGithub: false,
+    tags: ['Flutter', 'Dart', 'Mobile'],
+    summary:
+        'Pump It Baby is a Flutter app (desktop/web) that monitors featured memecoins on pump.fun in real time and orchestrates an auto-invest bot. The UI is feature-driven and state is managed with Riverpod: FeaturedCoinNotifier handles discovery/filters/insights, AutoInvestNotifier manages configuration and positions, and AutoInvestExecutor watches state changes to decide and execute swaps. The services layer encapsulates data clients (pump.fun, Solana RPC/WS, Helius Enhanced API), execution providers (Jupiter/PumpPortal), wallet providers (local keypair on desktop, Phantom on web), and analytics/AI (optional OpenAI). The architecture cleanly separates data acquisition, decision logic, and execution, with fast confirmations via WebSocket and an HTTP RPC fallback for resilience.',
+  ),
 ];
 
 /// Returns the list of projects with localized title, subtitle and summary.
@@ -128,6 +147,7 @@ List<Project> localizedProjects(AppLocalizations t) => <Project>[
     emulateMobileDemo: false,
     emulateTabletDemo: true,
     demoUrl: 'https://gonzagarcia01914.github.io/mestura-cooking-app/',
+    logoAsset: 'assets/logo_mestura.png',
     githubUrl: 'https://github.com/GonzaGarcia01914/mestura-cooking-app',
     codeEmbedUrl:
         'https://gonzagarcia01914.github.io/mestura-cooking-app/code.html?owner=GonzaGarcia01914&repo=mestura-cooking-app&branch=main',
@@ -150,9 +170,28 @@ List<Project> localizedProjects(AppLocalizations t) => <Project>[
     summary: t.summaryPortfolio,
     showDemo: false,
     demoUrl: null,
+    logoAsset: 'assets/mi_web_logo.png',
     githubUrl: 'https://github.com/GonzaGarcia01914/myWebsite.git',
     codeEmbedUrl:
         '/code.html?owner=GonzaGarcia01914&repo=myWebsite&branch=main',
     tags: ['FlutterWeb', 'Riverpod', 'GoRouter', 'ResponsiveDesign', 'Github'],
+  ),
+
+  Project(
+    id: 'pumpit',
+    title: t.projectPumpItTitle,
+    subtitle: t.projectPumpItSubtitle,
+    summary: t.summaryPumpIt,
+    demoUrl: null,
+    videoUrl: null,
+    videoPosterUrl: null,
+    youtubeUrl: 'https://youtu.be/_y4SGuqEjeQ',
+    logoAsset: 'assets/pump_it.png',
+    githubUrl: 'https://github.com/GonzaGarcia01914/pumpIt',
+    showDemo: false,
+    showCode: false,
+    showGithub: false,
+    playUrl: null,
+    tags: ['Flutter', 'Dart', 'Mobile'],
   ),
 ];
