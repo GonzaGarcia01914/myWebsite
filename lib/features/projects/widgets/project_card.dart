@@ -30,9 +30,9 @@ class _ProjectCardState extends State<ProjectCard> {
     final w = MediaQuery.sizeOf(context).width;
     final isPhone = w < 480;
     final hasLogo = (widget.project.logoAsset ?? '').isNotEmpty;
-    final logoAreaFactor = isPhone ? 0.5 : 0.42;
+    final logoAreaFactor = isPhone ? 0.52 : 0.44;
     final logoOpacity = isPhone ? 0.82 : 0.9;
-    final contentWidthFactor = isPhone ? 0.72 : 0.68;
+    final contentWidthFactor = isPhone ? 0.7 : 0.66;
 
     final borderColor = _hover || _focused
         ? scheme.primary.withValues(alpha: 0.45)
@@ -78,6 +78,9 @@ class _ProjectCardState extends State<ProjectCard> {
             clipBehavior: Clip.antiAlias,
             child: InkWell(
               borderRadius: BorderRadius.circular(16),
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              splashColor: Colors.transparent,
               onTap: _open,
               child: Padding(
                 padding: const EdgeInsets.all(18),

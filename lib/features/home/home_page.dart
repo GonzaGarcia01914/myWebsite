@@ -169,7 +169,7 @@ class _ProjectsSection extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: cols,
-              childAspectRatio: 1.18,
+              childAspectRatio: 0.95,
               crossAxisSpacing: 24, // espacio horizontal
               mainAxisSpacing: 24, //  espacio vertical
             ),
@@ -382,7 +382,7 @@ class _ResumeSectionState extends State<_ResumeSection> {
 
           // Descargar CV
           OutlinedButton.icon(
-            onPressed: () => _openUrl('/assets/CV_11-25.pdf'),
+            onPressed: () => _openUrl('assets/CV_11-25.pdf'),
             icon: const Icon(Icons.file_download),
             label: Text(AppLocalizations.of(context)!.resumeDownloadCv),
             style: OutlinedButton.styleFrom(

@@ -185,12 +185,6 @@ abstract class AppLocalizations {
   /// **'Description'**
   String get tabDescription;
 
-  /// No description provided for @tabVideo.
-  ///
-  /// In en, this message translates to:
-  /// **'Video'**
-  String get tabVideo;
-
   /// No description provided for @btnGooglePlay.
   ///
   /// In en, this message translates to:
@@ -220,12 +214,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Open on GitHub'**
   String get btnOpenOnGithub;
-
-  /// No description provided for @btnWatchYoutube.
-  ///
-  /// In en, this message translates to:
-  /// **'Watch on YouTube'**
-  String get btnWatchYoutube;
 
   /// No description provided for @demoBanner.
   ///
@@ -395,13 +383,6 @@ abstract class AppLocalizations {
   /// **'AI cooking assistant that generates recipes from ingredients or cravings. Adjust servings, time, and skill level; respects diets and restrictions. Includes step-by-step cooking mode with timers, offline favorites + shopping list, deep links, and multi-language support. Monetized with spaced interstitial ads.'**
   String get summaryMestura;
 
-
-  /// No description provided for @summaryPumpIt.
-  ///
-  /// In en, this message translates to:
-  /// **'Pump It Baby is a Flutter app (desktop/web) that monitors featured memecoins on pump.fun in real time and orchestrates an auto-invest bot. The UI is feature-driven and state is managed with Riverpod: FeaturedCoinNotifier handles discovery/filters/insights, AutoInvestNotifier manages configuration and positions, and AutoInvestExecutor watches state changes to decide and execute swaps. The services layer encapsulates data clients (pump.fun, Solana RPC/WS, Helius Enhanced API), execution providers (Jupiter/PumpPortal), wallet providers (local keypair on desktop, Phantom on web), and analytics/AI (optional OpenAI). The architecture cleanly separates data acquisition, decision logic, and execution, with fast confirmations via WebSocket and an HTTP RPC fallback for resilience.'**
-  String get summaryPumpIt;
-
   /// No description provided for @projectMoviesTitle.
   ///
   /// In en, this message translates to:
@@ -426,19 +407,6 @@ abstract class AppLocalizations {
   /// **'AI-powered assistant to generate and cook recipes.'**
   String get projectMesturaSubtitle;
 
-
-  /// No description provided for @projectPumpItTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'PumpIt'**
-  String get projectPumpItTitle;
-
-  /// No description provided for @projectPumpItSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Workout and progress tracker.'**
-  String get projectPumpItSubtitle;
-
   /// No description provided for @projectPortfolioTitle.
   ///
   /// In en, this message translates to:
@@ -450,6 +418,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Portfolio built with Flutter Web'**
   String get projectPortfolioSubtitle;
+
+  /// No description provided for @summaryPumpIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Pump It Baby is a Flutter app (desktop/web) that monitors featured memecoins on pump.fun in real time and orchestrates an auto-invest bot. The UI is feature-driven and state is managed with Riverpod: FeaturedCoinNotifier handles discovery/filters/insights, AutoInvestNotifier manages configuration and positions, and AutoInvestExecutor watches state changes to decide and execute swaps. The services layer encapsulates data clients (pump.fun, Solana RPC/WS, Helius Enhanced API), execution providers (Jupiter/PumpPortal), wallet providers (local keypair on desktop, Phantom on web), and analytics/AI (optional OpenAI). The architecture cleanly separates data acquisition, decision logic, and execution, with fast confirmations via WebSocket and an HTTP RPC fallback for resilience.'**
+  String get summaryPumpIt;
+
+  /// No description provided for @projectPumpItTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'PumpIt'**
+  String get projectPumpItTitle;
+
+  /// No description provided for @projectPumpItSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Meme coins trading bot and platform'**
+  String get projectPumpItSubtitle;
+
+  /// No description provided for @btnWatchYoutube.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch on YouTube'**
+  String get btnWatchYoutube;
+
+  /// No description provided for @tabVideo.
+  ///
+  /// In en, this message translates to:
+  /// **'Video'**
+  String get tabVideo;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

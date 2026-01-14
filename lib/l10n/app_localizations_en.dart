@@ -54,9 +54,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tabDescription => 'Description';
 
   @override
-  String get tabVideo => 'Video';
-
-  @override
   String get btnGooglePlay => 'Google Play';
 
   @override
@@ -70,9 +67,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get btnOpenOnGithub => 'Open on GitHub';
-
-  @override
-  String get btnWatchYoutube => 'Watch on YouTube';
 
   @override
   String get demoBanner => 'Keep in mind that this project was designed for mobile devices; this is a representative web demo.';
@@ -158,10 +152,6 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get summaryMestura => 'AI cooking assistant that generates recipes from ingredients or cravings. Adjust servings, time, and skill level; respects diets and restrictions. Includes step-by-step cooking mode with timers, offline favorites + shopping list, deep links, and multi-language support. Monetized with spaced interstitial ads.';
 
-
-  @override
-  String get summaryPumpIt => 'Pump It Baby is a Flutter app (desktop/web) that monitors featured memecoins on pump.fun in real time and orchestrates an auto-invest bot. The UI is feature-driven and state is managed with Riverpod: FeaturedCoinNotifier handles discovery/filters/insights, AutoInvestNotifier manages configuration and positions, and AutoInvestExecutor watches state changes to decide and execute swaps. The services layer encapsulates data clients (pump.fun, Solana RPC/WS, Helius Enhanced API), execution providers (Jupiter/PumpPortal), wallet providers (local keypair on desktop, Phantom on web), and analytics/AI (optional OpenAI). The architecture cleanly separates data acquisition, decision logic, and execution, with fast confirmations via WebSocket and an HTTP RPC fallback for resilience.';
-
   @override
   String get projectMoviesTitle => 'Flutter Movies Portfolio';
 
@@ -174,16 +164,24 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get projectMesturaSubtitle => 'AI-powered assistant to generate and cook recipes.';
 
-
-  @override
-  String get projectPumpItTitle => 'PumpIt';
-
-  @override
-  String get projectPumpItSubtitle => 'Workout and progress tracker.';
-
   @override
   String get projectPortfolioTitle => 'This page was also made with Flutter!';
 
   @override
   String get projectPortfolioSubtitle => 'Portfolio built with Flutter Web';
+
+  @override
+  String get summaryPumpIt => 'Pump It Baby is a Flutter app (desktop/web) that monitors featured memecoins on pump.fun in real time and orchestrates an auto-invest bot. The UI is feature-driven and state is managed with Riverpod: FeaturedCoinNotifier handles discovery/filters/insights, AutoInvestNotifier manages configuration and positions, and AutoInvestExecutor watches state changes to decide and execute swaps. The services layer encapsulates data clients (pump.fun, Solana RPC/WS, Helius Enhanced API), execution providers (Jupiter/PumpPortal), wallet providers (local keypair on desktop, Phantom on web), and analytics/AI (optional OpenAI). The architecture cleanly separates data acquisition, decision logic, and execution, with fast confirmations via WebSocket and an HTTP RPC fallback for resilience.';
+
+  @override
+  String get projectPumpItTitle => 'PumpIt';
+
+  @override
+  String get projectPumpItSubtitle => 'Meme coins trading bot and platform';
+
+  @override
+  String get btnWatchYoutube => 'Watch on YouTube';
+
+  @override
+  String get tabVideo => 'Video';
 }

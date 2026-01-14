@@ -99,7 +99,7 @@ UX cuidada: interfaz ligera, fondo animado y componentes reutilizables con un si
 
   Project(
     title: 'PumpIt',
-    subtitle: 'Workout and progress tracker.',
+    subtitle: 'Meme coins trading bot and platform',
     demoUrl: null,
     videoUrl: null,
     videoPosterUrl: null,
@@ -111,7 +111,16 @@ UX cuidada: interfaz ligera, fondo animado y componentes reutilizables con un si
     showDemo: false,
     showCode: false,
     showGithub: false,
-    tags: ['Flutter', 'Dart', 'Mobile'],
+    tags: [
+      'Flutter',
+      'Dart',
+      'Mobile',
+      'Riverpod',
+      'API',
+      'PumpPortal',
+      'Helius',
+      'Solana RPC/WS',
+    ],
     summary:
         'Pump It Baby is a Flutter app (desktop/web) that monitors featured memecoins on pump.fun in real time and orchestrates an auto-invest bot. The UI is feature-driven and state is managed with Riverpod: FeaturedCoinNotifier handles discovery/filters/insights, AutoInvestNotifier manages configuration and positions, and AutoInvestExecutor watches state changes to decide and execute swaps. The services layer encapsulates data clients (pump.fun, Solana RPC/WS, Helius Enhanced API), execution providers (Jupiter/PumpPortal), wallet providers (local keypair on desktop, Phantom on web), and analytics/AI (optional OpenAI). The architecture cleanly separates data acquisition, decision logic, and execution, with fast confirmations via WebSocket and an HTTP RPC fallback for resilience.',
   ),
@@ -193,6 +202,15 @@ List<Project> localizedProjects(AppLocalizations t) => <Project>[
     showCode: false,
     showGithub: false,
     playUrl: null,
-    tags: ['Flutter', 'Dart', 'Mobile'],
+    tags: [
+      'Desktop',
+      'Dart',
+      'Mobile',
+      'Riverpod',
+      'API',
+      'PumpPortal',
+      'Helius',
+      'Solana RPC/WS',
+    ],
   ),
 ];
