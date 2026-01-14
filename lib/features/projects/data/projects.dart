@@ -35,8 +35,8 @@ This project is part of my professional portfolio, aimed at demonstrating best p
     emulateTabletDemo: true,
     title: 'Mestura - Your cooking AI assistant',
     subtitle: 'Descripción corta',
-    demoUrl:
-        'https://gonzagarcia01914.github.io/mestura-cooking-app/', // si no tienes demo web
+    demoUrl: 'https://gonzagarcia01914.github.io/mestura-cooking-app/',
+    logoAsset: 'assets/logo_mestura.png', // si no tienes demo web
     githubUrl:
         'https://github.com/GonzaGarcia01914/mestura-cooking-app', // TODO
     codeEmbedUrl:
@@ -83,7 +83,8 @@ UX cuidada: interfaz ligera, fondo animado y componentes reutilizables con un si
     emulateMobileDemo: true,
     title: 'This page was also made with Flutter!',
     subtitle: 'El propio portfolio construido con Flutter Web',
-    showDemo: false, // ⟵ oculta pestaña Demo
+    showDemo: false, // oculta pesta?a Demo
+    logoAsset: 'assets/mi_web_logo.png',
     demoUrl: null,
     githubUrl:
         'https://github.com/GonzaGarcia01914/myWebsite.git', // ajusta si cambia
@@ -93,7 +94,7 @@ UX cuidada: interfaz ligera, fondo animado y componentes reutilizables con un si
     id: 'portfolio',
     tags: ['FlutterWeb', 'Riverpod', 'GoRouter', 'ResponsiveDesign', "Github"],
     summary:
-        'Portafolio web (Flutter Web) con navegación por secciones y modal de proyectos. Cada proyecto incluye demo embebida (con marco de móvil/tablet), visor de código conectado a GitHub y descripción con tags. UI animada con Material 3, diseño responsive y soporte de foco/teclado. Implementado con Riverpod + GoRouter y publicado en GitHub Pages, priorizando rendimiento, accesibilidad y una experiencia limpia y moderna.',
+        'Portafolio web (Flutter Web) con navegacion por secciones y modal de proyectos. Cada proyecto incluye demo embebida (con marco de movil/tablet), visor de codigo conectado a GitHub y descripcion con tags. UI animada con Material 3, diseno responsive y soporte de foco/teclado. Implementado con Riverpod + GoRouter y publicado en GitHub Pages, priorizando rendimiento, accesibilidad y una experiencia limpia y moderna.',
   ),
 
   Project(
@@ -102,13 +103,17 @@ UX cuidada: interfaz ligera, fondo animado y componentes reutilizables con un si
     demoUrl: null,
     videoUrl: null,
     videoPosterUrl: null,
+    youtubeUrl: 'https://youtu.be/_y4SGuqEjeQ',
+    logoAsset: 'assets/pump_it.png',
     githubUrl: 'https://github.com/GonzaGarcia01914/pumpIt',
     codeEmbedUrl: null,
     playUrl: null,
+    showDemo: false,
     showCode: false,
+    showGithub: false,
     tags: ['Flutter', 'Dart', 'Mobile'],
     summary:
-        'Gym workout companion focused on routines, sets, and progress tracking.',
+        'Pump It Baby is a Flutter app (desktop/web) that monitors featured memecoins on pump.fun in real time and orchestrates an auto-invest bot. The UI is feature-driven and state is managed with Riverpod: FeaturedCoinNotifier handles discovery/filters/insights, AutoInvestNotifier manages configuration and positions, and AutoInvestExecutor watches state changes to decide and execute swaps. The services layer encapsulates data clients (pump.fun, Solana RPC/WS, Helius Enhanced API), execution providers (Jupiter/PumpPortal), wallet providers (local keypair on desktop, Phantom on web), and analytics/AI (optional OpenAI). The architecture cleanly separates data acquisition, decision logic, and execution, with fast confirmations via WebSocket and an HTTP RPC fallback for resilience.',
   ),
 ];
 
@@ -143,6 +148,7 @@ List<Project> localizedProjects(AppLocalizations t) => <Project>[
     emulateMobileDemo: false,
     emulateTabletDemo: true,
     demoUrl: 'https://gonzagarcia01914.github.io/mestura-cooking-app/',
+    logoAsset: 'assets/logo_mestura.png',
     githubUrl: 'https://github.com/GonzaGarcia01914/mestura-cooking-app',
     codeEmbedUrl:
         'https://gonzagarcia01914.github.io/mestura-cooking-app/code.html?owner=GonzaGarcia01914&repo=mestura-cooking-app&branch=main',
@@ -165,6 +171,7 @@ List<Project> localizedProjects(AppLocalizations t) => <Project>[
     summary: t.summaryPortfolio,
     showDemo: false,
     demoUrl: null,
+    logoAsset: 'assets/mi_web_logo.png',
     githubUrl: 'https://github.com/GonzaGarcia01914/myWebsite.git',
     codeEmbedUrl:
         '/code.html?owner=GonzaGarcia01914&repo=myWebsite&branch=main',
@@ -179,8 +186,12 @@ List<Project> localizedProjects(AppLocalizations t) => <Project>[
     demoUrl: null,
     videoUrl: null,
     videoPosterUrl: null,
-    githubUrl: null,
+    youtubeUrl: 'https://youtu.be/_y4SGuqEjeQ',
+    logoAsset: 'assets/pump_it.png',
+    githubUrl: 'https://github.com/GonzaGarcia01914/pumpIt',
+    showDemo: false,
     showCode: false,
+    showGithub: false,
     playUrl: null,
     tags: ['Flutter', 'Dart', 'Mobile'],
   ),

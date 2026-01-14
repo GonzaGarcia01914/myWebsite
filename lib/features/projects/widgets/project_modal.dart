@@ -27,10 +27,12 @@ class _ProjectModalState extends State<ProjectModal>
     // Demo (si procede) + Codigo (si procede) + Descripcion
     final hasVideo = (widget.project.videoUrl ?? '').isNotEmpty;
     final hasYoutube = _youtubeEmbedUrl(widget.project.youtubeUrl) != null;
-    final hasDemo = widget.project.showDemo &&
+    final hasDemo =
+        widget.project.showDemo &&
         ((widget.project.demoUrl ?? '').isNotEmpty || hasVideo);
     final hasCode = widget.project.showCode;
-    final length = (hasDemo ? 1 : 0) + (hasYoutube ? 1 : 0) + (hasCode ? 1 : 0) + 1;
+    final length =
+        (hasDemo ? 1 : 0) + (hasYoutube ? 1 : 0) + (hasCode ? 1 : 0) + 1;
     _tabs = TabController(length: length, vsync: this);
   }
 
@@ -48,7 +50,6 @@ class _ProjectModalState extends State<ProjectModal>
       webOnlyWindowName: '_blank',
     );
   }
-
 
   String? _youtubeEmbedUrl(String? url) {
     if (url == null || url.isEmpty) return null;
@@ -105,7 +106,8 @@ class _ProjectModalState extends State<ProjectModal>
 
     final hasVideo = (widget.project.videoUrl ?? '').isNotEmpty;
     final hasYoutube = _youtubeEmbedUrl(widget.project.youtubeUrl) != null;
-    final hasDemo = widget.project.showDemo &&
+    final hasDemo =
+        widget.project.showDemo &&
         ((widget.project.demoUrl ?? '').isNotEmpty || hasVideo);
     final hasCode = widget.project.showCode;
 
@@ -254,7 +256,6 @@ class _ProjectModalState extends State<ProjectModal>
         ),
       );
     }
-
 
     if (hasYoutube) {
       tabs.add(Tab(text: loc.tabVideo));
